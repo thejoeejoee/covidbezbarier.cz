@@ -59,6 +59,11 @@ export default {
         '@nuxtjs/axios',
         '@nuxtjs/sentry',
     ],
+    extendPlugins(plugins) {
+        plugins.push({src: '~/plugins/axios-accessor.ts'})
+
+        return plugins
+    },
 
     publicRuntimeConfig: {
         baseUrl,
