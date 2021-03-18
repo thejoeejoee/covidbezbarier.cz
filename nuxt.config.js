@@ -1,46 +1,79 @@
+const baseUrl = (
+    process.env.VERCEL_URL ||
+    process.env.PUBLIC_URL ||
+    'https://covidbezbarier.cz/'
+).replace(/\/$/, '') + '/'
+
+const title = 'Covid bez bariér'
+const description = 'Covid bez bariér – interaktivní mapa bezbariérových míst na testování a očkování proti Covid-19'
+
 export default {
-  target: 'static',
+    target: 'static',
 
-  head: {
-    title: 'Covid bez bariér – interaktivní mapa bezbariérových míst pro testování a očkování',
-    htmlAttrs: {
-      lang: 'en'
+    head: {
+        title: 'Covid bez bariér',
+        htmlAttrs: {
+            lang: 'cs'
+        },
+        meta: [
+            {charset: 'utf-8'},
+            {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+            {
+                hid: 'author',
+                name: 'author',
+                content: 'Josef Kolář & Peter Uhrín; https://github.com/thejoeejoee/covidbezbarier.cz'
+            },
+            {
+                hid: 'description',
+                name: 'description',
+                content: description
+            },
+
+            {hid: 'og:type', name: 'og:type', content: 'website'},
+            {hid: 'og:url', name: 'og:url', content: baseUrl},
+            {hid: 'og:title', name: 'og:title', content: title},
+            {hid: 'og:description', name: 'og:description', content: description},
+
+            {hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image'},
+            {hid: 'twitter:url', name: 'twitter:url', content: baseUrl},
+            {hid: 'twitter:title', name: 'twitter:title', content: title},
+            {hid: 'twitter:description', name: 'twitter:description', content: description},
+        ],
+        link: [
+            {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+        ]
     },
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { hid: 'author', name: 'author', content: 'Josef Kolář & Peter Uhrín; https://github.com/thejoeejoee/covidbezbarier.cz' },
+
+    css: [],
+
+    plugins: [],
+
+    components: true,
+
+    buildModules: [
+        '@nuxt/typescript-build',
+        '@nuxtjs/tailwindcss',
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    ]
-  },
 
-  css: [
-  ],
+    modules: [
+        '@nuxtjs/axios',
+        '@nuxtjs/sentry',
+    ],
 
-  plugins: [
-  ],
+    publicRuntimeConfig: {
+        baseUrl,
+    },
 
-  components: true,
+    axios: {},
 
-  buildModules: [
-    '@nuxt/typescript-build',
-  ],
+    build: {},
 
-  modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/sentry',
-  ],
+    sentry: {
+        dsn: process.env.SENTRY_DSN || '',
+        config: {},
+    },
 
-  axios: {},
-
-  build: {
-  },
-
-  sentry: {
-    dsn: process.env.SENTRY_DSN || '',
-    config: {},
-  }
+    tailwindcss: {
+        jit: true
+    }
 }
