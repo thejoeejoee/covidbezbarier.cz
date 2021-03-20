@@ -8,7 +8,7 @@ const title = 'Covid bez bariér'
 const description = 'Covid bez bariér – interaktivní mapa bezbariérových míst na testování a očkování proti Covid-19'
 
 export default {
-    target: 'static',
+    target: 'universal',
 
     head: {
         title: 'Covid bez bariér',
@@ -46,7 +46,10 @@ export default {
 
     css: [],
 
-    plugins: [],
+    plugins: [
+        {src: '~/plugins/vue-typer.client.ts', mode: 'client'},
+        {src: '~/plugins/axios-accessor.ts'},
+    ],
 
     components: true,
 
@@ -59,11 +62,6 @@ export default {
         '@nuxtjs/axios',
         '@nuxtjs/sentry',
     ],
-    extendPlugins(plugins) {
-        plugins.push({src: '~/plugins/axios-accessor.ts'})
-
-        return plugins
-    },
 
     publicRuntimeConfig: {
         baseUrl,
