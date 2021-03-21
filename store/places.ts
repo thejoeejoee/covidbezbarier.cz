@@ -55,7 +55,13 @@ export const state = () => new State;
 
 export const mutations = <MutationTree<State>>{
     setTestingPlacesResponse(state: State, response: TestingPlacesResponse) {
-        state.testingPlaces = _.map(response.data, (raw: any) => new TestingPlace(raw))
+        state.testingPlaces = _.map(
+            _.filter(
+                response.data,
+                {'drive_in': true}
+            ),
+            (raw: any) => new TestingPlace(raw)
+        )
         state.modified = new Date(response.modified)
     }
 }

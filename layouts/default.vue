@@ -20,11 +20,11 @@
                 >
                     <span class="
                         bg-gray-100 inline-block rounded-full mx-auto
-                        p-2 px-3 lg:p-3 lg:px-6 max-w-xl
+                        p-2 px-3 lg:p-3 lg:px-6
                         shadow-xl text-gray-700
                         max-w-md
                     ">
-                    interaktivní mapa bezbariérových míst pro zvládání Covid-19
+                    interaktivní mapa bezbariérových míst pro&nbsp;testování a vakcinaci
                         </span>
                 </h2>
             </div>
@@ -55,7 +55,6 @@ import {
     VuexModule
 } from "nuxt-property-decorator"
 import {TestingPlace} from "~/store/places";
-import ResizeObserver from 'resize-observer-polyfill';
 
 
 @Component({})

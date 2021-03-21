@@ -4,7 +4,7 @@
         <div class="
             flex justify-around items-center
             from-indigo-400 to-indigo-300 bg-gradient-to-b
-            shadow
+            shadow z-[420]
             ">
             <label
                 class="flex-grow-0 flex-auto relative transition-all duration-300 max-w-full"
@@ -57,8 +57,10 @@
             </ul>
         </div>
 
-        <div class="bg-gray-50 flex-grow">
-            expanded {{ $store.state.layout.headingExpanded }}
+        <div class="bg-gray-50 flex-grow flex">
+            <Map>
+
+            </Map>
         </div>
 
     </div>

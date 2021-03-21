@@ -61,6 +61,7 @@ export default {
     modules: [
         '@nuxtjs/axios',
         '@nuxtjs/sentry',
+        ['nuxt-leaflet', {}],
     ],
 
     publicRuntimeConfig: {
