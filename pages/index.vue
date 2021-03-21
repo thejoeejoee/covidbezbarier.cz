@@ -1,26 +1,22 @@
 <template>
-    <div class="w-full">
-            <!-- TODO: extract to standalone component -->
-            <div class="
-                flex justify-around items-center
-                from-indigo-400 to-indigo-300 bg-gradient-to-b
-                shadow
-                ">
-                <label
-                    class="flex-grow-0 flex-auto relative transition-all  duration-300 max-w-full"
-                    :class="{
+    <div class="w-full flex-grow flex flex-col">
+        <!-- TODO: extract to standalone component -->
+        <div class="
+            flex justify-around items-center
+            from-indigo-400 to-indigo-300 bg-gradient-to-b
+            shadow
+            ">
+            <label
+                class="flex-grow-0 flex-auto relative transition-all duration-300 max-w-full"
+                :class="{
                         'my-20 lg:my-36 -bottom-0' : this.isSearchEmpty,
                         'my-18 -bottom-8 -mt-5' : !this.isSearchEmpty,
                     }"
 
-                    for="searchInput"
-                >
-                    <input
-                        v-model="searchInput"
-                        :class="[
-                        this.isSearchEmpty ? '' : ''
-                    ]"
-                        class="
+                for="searchInput"
+            >
+                <input
+                    class="
                     text-2xl p-4 pl-5 rounded-full shadow
                     focus-within:shadow-2xl transition-all duration-300
                     border-4 border-green-300 focus:border-green-500
@@ -28,27 +24,30 @@
                     w-11/12 block mx-auto
                     bg-green-50
                     "
-                        type="text" id="searchInput"
-                    >
-                    <span class="
+                    :class="[
+                        this.isSearchEmpty ? '' : ''
+                    ]"
+                    v-model="searchInput"
+                    type="text" id="searchInput"
+                >
+                <span class="
                         absolute top-1/4 text-2xl pl-10
                     "><client-only><vue-typer
-                        v-if="isSearchEmpty"
-                        :text="proposalPlaces"
-                        :repeat="Infinity"
-                        initial-action="typing"
-                        :pre-type-delay="70"
-                        :type-delay="70"
-                        :pre-erase-delay="3000"
-                        :erase-delay="70"
-                        erase-style="backspace"
-                        caret-animation="smooth"
-                        @typed="onTyped"
-                    /></client-only></span>
-                </label>
-            </div>
+                    v-if="isSearchEmpty"
+                    :text="proposalPlaces"
+                    :repeat="Infinity"
+                    initial-action="typing"
+                    :pre-type-delay="70"
+                    :type-delay="70"
+                    :pre-erase-delay="3000"
+                    :erase-delay="70"
+                    erase-style="backspace"
+                    caret-animation="smooth"
+                /></client-only></span>
+            </label>
+        </div>
 
-        <div class="container max-w-screen-sm mx-auto">
+        <div class="container max-w-screen-sm mx-auto" v-if="false">
             <ul class="pt-12" v-show="!this.isSearchEmpty">
                 <li
                     v-for="place in testingPlaces"
@@ -56,6 +55,10 @@
                     {{ place.odberove_misto_nazev }}
                 </li>
             </ul>
+        </div>
+
+        <div class="bg-gray-50 flex-grow">
+            expanded {{ $store.state.layout.headingExpanded }}
         </div>
 
     </div>
@@ -89,7 +92,7 @@ export default class IndexPage extends Vue {
 
     set searchInput(v: string) {
         this.searchInputRaw = v || ''
-        this.$nuxt.$emit('expandChange', v.length == 0)
+        this.$store.commit('layout/setHeadingExpanded', v.length == 0)
     }
 
     get isSearchEmpty(): boolean {
@@ -113,9 +116,6 @@ export default class IndexPage extends Vue {
         )
 
     }
-
-    onTyped() {
-    }
 }
 </script>
 
@@ -124,6 +124,7 @@ export default class IndexPage extends Vue {
     .caret {
         display: none;
     }
+
     .custom.char.typed {
         @apply text-gray-500;
     }
