@@ -83,16 +83,6 @@
             </div>
         </div>
 
-        <div class="container max-w-screen-sm mx-auto" v-if="false">
-            <ul class="pt-12" v-show="!this.isCollapsed">
-                <li
-                    v-for="place in testingPlaces"
-                >
-                    {{ place.odberove_misto_nazev }}
-                </li>
-            </ul>
-        </div>
-
         <div class="bg-gray-50 flex-grow flex">
             <Map>
 
@@ -138,21 +128,10 @@ export default class IndexPage extends Vue {
     }
 
     async fetch() {
-        await this.$store.dispatch('places/loadTestingPlaces');
-    }
-
-    get testingPlaces(): TestingPlace[] {
-        // TODO: distance filtering
-        const s = this.searchInput.toLowerCase();
-        return _.slice(
-            _.filter(
-                this.$store.state.places.testingPlaces,
-                (place: TestingPlace) => !this.searchInput.length || place.odberove_misto_nazev.toLowerCase().includes(s)
-            ),
-            0,
-            20,
-        )
-
+        return Promise.all([
+            this.$store.dispatch('places/loadTestingPlaces'),
+            this.$store.dispatch('places/loadVaccinationPlaces'),
+        ]);
     }
 }
 </script>

@@ -9,9 +9,31 @@
                     :key="place.odberove_misto_id"
                     :lat-lng="[place.latitude, place.longitude]"
                 >
+                    <l-icon
+                        :icon-size="28"
+                        :icon-anchor="[14, 14]"
+                        :icon-url="require('../assets/covid.svg')"
+                    />
                     <l-popup>
                         <div>
                             {{ place.odberove_misto_nazev  }}
+                        </div>
+                    </l-popup>
+                </l-marker>
+
+                <l-marker
+                    v-for="place in $store.state.places.vaccinationPlaces"
+                    :key="place.ockovaci_misto_id"
+                    :lat-lng="[place.latitude, place.longitude]"
+                >
+                    <l-icon
+                        :icon-size="36"
+                        :icon-anchor="[36, 0]"
+                        :icon-url="require('../assets/syringe.svg')"
+                    />
+                    <l-popup>
+                        <div>
+                            {{ place.ockovaci_misto_nazev  }}
                         </div>
                     </l-popup>
                 </l-marker>
