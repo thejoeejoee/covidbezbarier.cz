@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="flex flex-col min-h-screen">
-            <div class="from-blue-500 to-indigo-400 bg-gradient-to-b">
+            <div class="bg-indigo-400">
                 <h1 class="
-                    font-black pt-8 pb-4 text-center font-mono
+                    font-black pt-8 pb-2 text-center font-mono
                     text-4xl sm:text-5xl lg:text-6xl xl:text-7xl
-                    text-gray-50
+                    text-gray-50 uppercase
                     ">
                     <!-- TODO: brand logo? -->
                     Covid bez bariér
@@ -16,12 +16,12 @@
                     font-sans transform transition-all duration-300
                     px-4
             "
-                    :class="{'opacity-1 h-auto': expanded, 'opacity-0 h-0': !expanded}"
+                    :class="{'opacity-1 h-auto': expanded, 'opacity-0 h-0 scale-y-0': !expanded}"
                 >
                     <span class="
-                        bg-gray-100 inline-block rounded-full mx-auto
+                        inline-block mx-auto
                         p-2 px-3 lg:p-3 lg:px-6
-                        shadow-xl text-gray-700
+                        text-gray-50
                         max-w-md
                     ">
                     interaktivní mapa bezbariérových míst pro&nbsp;testování a vakcinaci
@@ -32,7 +32,6 @@
             <Nuxt/>
         </div>
         <div class="
-                from-gray-600 to-gray-500 bg-gradient-to-b
                 h-10 shadow-xl text-center
                 leading-loose
         ">

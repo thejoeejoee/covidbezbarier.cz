@@ -2,30 +2,51 @@
     <div class="w-full flex-grow flex flex-col">
         <!-- TODO: extract to standalone component -->
         <div class="
-            flex justify-around items-center
-            from-indigo-400 to-indigo-300 bg-gradient-to-b
-            shadow z-[420]
+            flex items-center justify-center
+            bg-indigo-400
+            z-[420]
             ">
+            <div class="
+                flex flex-row relative mr-5 w-36 justify-end
+            " :class="{
+                '-bottom-0' : this.isCollapsed,
+                '-bottom-8 -mt-5' : !this.isCollapsed,
+            }">
+                <button class="
+                    border-green-300 bg-green-50
+                    rounded-l-full p-3 pl-4
+                    border-l-4 border-t-4 border-b-4 border-green-300
+                ">
+                    <img src="../assets/covid.svg" alt="" width="40">
+                </button>
+                <button class="
+                    border-green-300 bg-green-50
+                    rounded-r-full p-3 pr-4
+                    border-r-4 border-t-4 border-b-4 border-green-300
+                ">
+                    <img src="../assets/syringe.svg" alt="" width="40">
+                </button>
+            </div>
             <label
                 class="flex-grow-0 flex-auto relative transition-all duration-300 max-w-full"
                 :class="{
-                        'my-20 lg:my-36 -bottom-0' : this.isSearchEmpty,
-                        'my-18 -bottom-8 -mt-5' : !this.isSearchEmpty,
+                        'my-20 lg:my-36 -bottom-0' : this.isCollapsed,
+                        'my-18 -bottom-8 -mt-5' : !this.isCollapsed,
                     }"
 
                 for="searchInput"
             >
                 <input
                     class="
-                    text-2xl p-4 pl-5 rounded-full shadow
-                    focus-within:shadow-2xl transition-all duration-300
+                    text-2xl p-4 pl-5 rounded-full justify-self-center
+                    focus-within:shadow-xl transition-all duration-300
                     border-4 border-green-300 focus:border-green-500
                     text-gray-700
                     w-11/12 block mx-auto
                     bg-green-50
                     "
                     :class="[
-                        this.isSearchEmpty ? '' : ''
+                        this.isCollapsed ? '' : ''
                     ]"
                     v-model="searchInput"
                     type="text" id="searchInput"
@@ -33,7 +54,7 @@
                 <span class="
                         absolute top-1/4 text-2xl pl-10
                     "><client-only><vue-typer
-                    v-if="isSearchEmpty"
+                    v-if="isCollapsed"
                     :text="proposalPlaces"
                     :repeat="Infinity"
                     initial-action="typing"
@@ -45,10 +66,25 @@
                     caret-animation="smooth"
                 /></client-only></span>
             </label>
+
+            <div class="
+                flex flex-row relative ml-5 w-36 justify-start
+            " :class="{
+                '-bottom-0' : this.isCollapsed,
+                '-bottom-8 -mt-5' : !this.isCollapsed,
+            }">
+                <button class="
+                    border-green-300 bg-green-50
+                    rounded-full p-3
+                    border-4 border-green-300
+                ">
+                    <img src="../assets/location.svg" alt="" width="40">
+                </button>
+            </div>
         </div>
 
         <div class="container max-w-screen-sm mx-auto" v-if="false">
-            <ul class="pt-12" v-show="!this.isSearchEmpty">
+            <ul class="pt-12" v-show="!this.isCollapsed">
                 <li
                     v-for="place in testingPlaces"
                 >
@@ -97,7 +133,7 @@ export default class IndexPage extends Vue {
         this.$store.commit('layout/setHeadingExpanded', v.length == 0)
     }
 
-    get isSearchEmpty(): boolean {
+    get isCollapsed(): boolean {
         return this.searchInputRaw.length == 0
     }
 
