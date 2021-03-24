@@ -69,7 +69,7 @@ export default class Map extends Vue {
         obs.observe(this.$refs.root as Element)
     }
 
-    set placeInDetail(place: TestingPlace | VaccinationPlace) {
+    set placeInDetail(place: TestingPlace | VaccinationPlace | null) {
         this.$store.commit('places/setPlaceInDetail', place)
     }
 
