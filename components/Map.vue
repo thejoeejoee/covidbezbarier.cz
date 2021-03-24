@@ -84,10 +84,10 @@ export default class Map extends Vue {
         obs.observe(this.$refs.root as Element)
     }
 
-    selectPlace($event: Event, place: TestingPlace | VaccinationPlace | null) {
+    selectPlace($event: any, place: TestingPlace | VaccinationPlace | null) {
         this.placeInDetail = place
         console.log($event)
-        const {latlng} : {latlng: LatLng} = $event;
+        const {latlng} : {latlng: any} = $event;
 
         this.map.mapObject.setView({
             lat: latlng.lat - 0.002,
