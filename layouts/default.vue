@@ -4,7 +4,7 @@
             <div class="bg-indigo-400">
                 <h1 class="
                     font-black pt-8 pb-2 text-center font-mono
-                    text-4xl sm:text-5xl lg:text-6xl xl:text-7xl
+                    text-3xl sm:text-4xl lg:text-6xl xl:text-7xl
                     text-gray-50 uppercase
                     ">
                     <!-- TODO: brand logo? -->
@@ -54,7 +54,7 @@ import {TestingPlace} from "~/store/places";
 @Component({})
 export default class DefaultLayout extends Vue {
     get expanded() {
-        return this.$store.state.layout.headingExpanded
+        return this.$store.state.layout.headingExpanded && !this.$store.state.places.placeInDetail
     }
 }
 </script>

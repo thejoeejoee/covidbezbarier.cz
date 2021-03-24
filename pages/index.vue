@@ -7,7 +7,7 @@
             z-[420]
             ">
             <div class="
-                flex flex-row relative mr-5 w-36 justify-end
+                flex flex-row relative mr-5 ml-2 w-36 justify-end
             " :class="{
                 '-bottom-0' : this.isCollapsed,
                 '-bottom-8 -mt-5' : !this.isCollapsed,
@@ -68,7 +68,7 @@
             </label>
 
             <div class="
-                flex flex-row relative ml-5 w-36 justify-start
+                flex flex-row relative ml-5 mr-2 w-36 justify-start
             " :class="{
                 '-bottom-0' : this.isCollapsed,
                 '-bottom-8 -mt-5' : !this.isCollapsed,
@@ -123,8 +123,8 @@ export default class IndexPage extends Vue {
         this.$store.commit('layout/setHeadingExpanded', v.length == 0)
     }
 
-    get isCollapsed(): boolean {
-        return this.searchInputRaw.length == 0
+    get isCollapsed() {
+        return this.$store.state.layout.headingExpanded && !this.$store.state.places.placeInDetail
     }
 
     async fetch() {
