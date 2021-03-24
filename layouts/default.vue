@@ -24,17 +24,12 @@
                         text-gray-50
                         max-w-md
                     ">
-                    interaktivní mapa bezbariérových míst pro&nbsp;testování a vakcinaci
-                        </span>
+                        interaktivní mapa bezbariérových míst pro&nbsp;testování a vakcinaci
+                    </span>
                 </h2>
             </div>
 
             <Nuxt/>
-        </div>
-        <div class="
-                h-10 shadow-xl text-center
-                leading-loose
-        ">
         </div>
     </div>
 </template>

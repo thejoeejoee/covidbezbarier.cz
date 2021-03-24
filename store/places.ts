@@ -8,14 +8,27 @@ interface PlacesRawResponse {
     data: any[]
 }
 
-export class TestingPlace {
-    readonly odberove_misto_id!: string//"a81a99e2-90bd-494c-ae42-7090f93115ca",
-    readonly odberove_misto_nazev!: string//"#NaŽádanku.cz – Odběrové centrum Praha 15 (H. Měcholupy)",
+export abstract class BasePlace {
+    readonly latitude : number;
+    readonly longitude : number;
+
+    protected constructor(
+        readonly id: string,
+        readonly name: string,
+        readonly address: string,
+        lat: string,
+        long: string
+    ) {
+        this.latitude = Number(lat)
+        this.longitude = Number(long)
+    }
+
+    abstract get icon() : any;
+}
+
+export class TestingPlace extends BasePlace {
     readonly okres_nuts_kod!: string//"CZ0100",
     readonly operacni_status!: boolean //true,
-    readonly odberove_misto_adresa!: string//"Park na křižovatce ulic Ravennská a Milánská, Praha 15, 109 00",
-    readonly latitude: number//"50.0444517",
-    readonly longitude: number//"14.5585581",
     readonly testovaci_kapacita!: bigint
     readonly nasofaryngealni_odber!: boolean //
     readonly orofaryngealni_odber!: boolean //
@@ -23,15 +36,19 @@ export class TestingPlace {
     readonly drive_in!: boolean //
 
     constructor(raw: any) {
+        super(
+            raw.odberove_misto_id,
+            raw.odberove_misto_nazev,
+            raw.odberove_misto_adresa,
+            raw.latitude,
+            raw.longitude,
+        )
         _.assign(
             this,
             _.pick(
                 raw,
                 [
-                    'odberove_misto_id',
-                    'odberove_misto_nazev',
                     'okres_nuts_kod',
-                    'odberove_misto_adresa',
                     'operacni_status',
                     'testovaci_kapacita',
                     'nasofaryngealni_odber',
@@ -41,33 +58,34 @@ export class TestingPlace {
                 ]
             )
         )
-        this.latitude = Number(raw.latitude)
-        this.longitude = Number(raw.longitude)
+    }
+
+    get icon() : any {
+        return require('../assets/covid.svg')
     }
 }
 
-export class VaccinationPlace {
-    readonly ockovaci_misto_id!: string//"a81a99e2-90bd-494c-ae42-7090f93115ca",
-    readonly ockovaci_misto_nazev!: string//"#NaŽádanku.cz – Odběrové centrum Praha 15 (H. Měcholupy)",
+export class VaccinationPlace extends BasePlace {
     readonly okres_nuts_kod!: string//"CZ0100",
     readonly nrpzs_kod!: string//"CZ0100",
     readonly operacni_status!: boolean //true,
-    readonly ockovaci_misto_adresa!: string//"Park na křižovatce ulic Ravennská a Milánská, Praha 15, 109 00",
-    readonly latitude: number//"50.0444517",
-    readonly longitude: number//"14.5585581",
     readonly minimalni_kapacita!: bigint
     readonly bezbarierovy_pristup!: boolean //
 
     constructor(raw: any) {
+        super(
+            raw.ockovaci_misto_id,
+            raw.ockovaci_misto_nazev,
+            raw.ockovaci_misto_adresa,
+            raw.latitude,
+            raw.longitude,
+        )
         _.assign(
             this,
             _.pick(
                 raw,
                 [
-                    'ockovaci_misto_id',
-                    'ockovaci_misto_nazev',
                     'okres_nuts_kod',
-                    'ockovaci_misto_adresa',
                     'operacni_status',
                     'nrpzs_kod',
                     'minimalni_kapacita',
@@ -75,8 +93,10 @@ export class VaccinationPlace {
                 ]
             )
         )
-        this.latitude = Number(raw.latitude)
-        this.longitude = Number(raw.longitude)
+    }
+
+    get icon() : any {
+        return require('../assets/syringe.svg')
     }
 }
 
@@ -86,6 +106,7 @@ class State {
 
     modified!: Date;
 
+    placeInDetail: TestingPlace | VaccinationPlace | null = null;
 }
 
 export const state = () => new State;
@@ -114,6 +135,9 @@ export const mutations = <MutationTree<State>>{
             (raw: any) => new VaccinationPlace(raw)
         )
         state.modified = new Date(response.modified)
+    },
+    setPlaceInDetail(state: State, place: VaccinationPlace | TestingPlace) {
+        state.placeInDetail = place
     }
 }
 
