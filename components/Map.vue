@@ -1,20 +1,25 @@
 <template>
     <div class="flex-grow relative text-center" ref="root">
         <client-only>
-            <l-map :zoom=11 :center="[50.08, 14.5]" ref="map"
+            <l-map :zoom=8 :center="[49.8, 15]" ref="map"
                    class="absolute bottom-0 top-0 left-0 right-0">
-                <!--<l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></l-tile-layer>-->
-                <l-tile-layer url="https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}"></l-tile-layer>
+                <l-tile-layer
+                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+
+                ></l-tile-layer>
+                <!--<l-tile-layer url="https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}"></l-tile-layer>-->
                 <l-marker
                     v-for="place in $store.state.places.testingPlaces"
                     :key="place.id"
                     :lat-lng="[place.latitude, place.longitude]"
                     @click="selectPlace($event, place)"
+                    :name="place.name"
                 >
                     <l-icon
-                        :icon-size="[28, 28]"
-                        :icon-anchor="[14, 14]"
-                        :icon-url="require('../assets/covid.svg')"
+                        :icon-size="[42, 42]"
+                        :icon-anchor="[21, 42]"
+                        :icon-url="require('../assets/covid-marker.svg')"
+
                     />
                 </l-marker>
 
@@ -25,9 +30,9 @@
                     @click="selectPlace($event, place)"
                 >
                     <l-icon
-                        :icon-size="[36, 36]"
-                        :icon-anchor="[36, 0]"
-                        :icon-url="require('../assets/syringe.svg')"
+                        :icon-size="[42, 42]"
+                        :icon-anchor="[21, 42]"
+                        :icon-url="require('../assets/syringe-marker.svg')"
                     />
                 </l-marker>
             </l-map>
@@ -90,9 +95,9 @@ export default class Map extends Vue {
         const {latlng} : {latlng: any} = $event;
 
         this.map.mapObject.setView({
-            lat: latlng.lat - 0.002,
+            lat: latlng.lat - 0.001,
             lng: latlng.lng,
-        }, 15, { animation: true });
+        }, 17, { animation: true });
     }
 
     set placeInDetail(place: TestingPlace | VaccinationPlace | null) {
@@ -105,6 +110,8 @@ export default class Map extends Vue {
 }
 </script>
 
-<style scoped>
-
+<style>
+    .grayscale {
+        filter: grayscale(50%);
+    }
 </style>
