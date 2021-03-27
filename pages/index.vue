@@ -2,15 +2,24 @@
     <div class="w-full flex-grow flex flex-col">
         <!-- TODO: extract to standalone component -->
         <div class="
-            flex items-center justify-center
+            flex items-center
             bg-indigo-500
+            flex-row
+            justify-items-start md:justify-center
+            flex-wrap content-start
             z-[420]
             ">
             <div class="
-                flex flex-row relative mr-5 ml-2 w-36 justify-end
+                w-1/2 relative
+                md:w-36 md:mr-5 md:ml-2 md:flex-1 md:pl-0
+                pl-2
+
+                self-start  md:self-center
+                order-1 md:order-none
+                md:text-right
             " :class="{
-                '-bottom-0' : this.isCollapsed,
-                '-bottom-8 -mt-5' : !this.isCollapsed,
+                '-bottom-0' : this.isExpanded,
+                '-bottom-8 -mt-5 md:block hidden' : !this.isExpanded,
             }">
                 <button
                     class="
@@ -25,8 +34,7 @@
                     aria-label="Testovací místa"
                 >
                     <img src="../assets/covid.svg" alt="" width="40" height="40">
-                </button>
-                <button
+                </button><button
                     class="
                         border-green-300 bg-green-50
                         rounded-r-full p-3 pr-4
@@ -43,33 +51,40 @@
                 </button>
             </div>
             <label
-                class="flex-grow-0 flex-auto relative transition-all duration-300 max-w-full"
+                class="
+                    md:flex-grow-0 md:flex-auto
+                    relative transition-all
+                    duration-300 max-w-full
+
+                    order-3 md:order-none
+                    mx-2 md:mx-0
+                "
                 :class="{
-                        'my-20 lg:my-36 -bottom-0' : this.isCollapsed,
-                        'my-18 -bottom-8 -mt-5' : !this.isCollapsed,
+                        'my-3 md:my-20 lg:my-36 -bottom-0' : this.isExpanded,
+                        'my-18 -bottom-8 -mt-5' : !this.isExpanded,
                     }"
 
                 for="searchInput"
             >
                 <input
                     class="
-                    text-2xl p-4 pl-5 rounded-full justify-self-center
+                    text-xl md:text-2xl p-2 md:p-4 pl-4 md:pl-5 rounded-full
                     focus-within:shadow-xl transition-all duration-300
                     border-4 border-green-300 focus:border-green-500
                     text-gray-700
-                    w-11/12 block mx-auto
+                    block mx-auto w-full
                     bg-green-50
                     "
                     :class="[
-                        this.isCollapsed ? '' : ''
+                        this.isExpanded ? '' : ''
                     ]"
                     v-model="searchInput"
                     type="text" id="searchInput"
                 >
                 <span class="
-                        absolute top-1/4 text-2xl pl-10
+                        absolute top-1/4 text-xl md:text-2xl pl-4 md:pl-10
                     "><client-only><vue-typer
-                    v-if="isCollapsed"
+                    v-if="isExpanded"
                     :text="proposalPlaces"
                     :repeat="Infinity"
                     initial-action="typing"
@@ -84,11 +99,20 @@
 
             <div
                 class="
-                    flex flex-row relative ml-5 mr-2 w-36 justify-start
+                    flex justify-end
+                    md:flex-1
+                    relative
+                    md:w-36 md:ml-5 md:mr-2
+                    pr-2 md:pr-0
+
+                    self-end md:self-center
+                    w-1/2
+                    md:justify-start
+                    order-2 md:order-none
                 "
                 :class="{
-                    '-bottom-0' : this.isCollapsed,
-                    '-bottom-8 -mt-5' : !this.isCollapsed,
+                    '-bottom-0' : this.isExpanded,
+                    '-bottom-8 -mt-5 md:block hidden' : !this.isExpanded,
             }">
                 <button
                     @click="locateByPosition"
@@ -145,7 +169,7 @@ export default class IndexPage extends Vue {
         this.$store.commit('layout/setHeadingExpanded', v.length == 0)
     }
 
-    get isCollapsed() {
+    get isExpanded() {
         return this.$store.state.layout.headingExpanded && !this.$store.state.places.placeInDetail
     }
 
