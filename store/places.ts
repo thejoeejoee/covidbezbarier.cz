@@ -1,6 +1,7 @@
 import * as _ from "lodash"
 import { $axios } from '~/utils/api'
 import {GetterTree, MutationTree, ActionTree} from "vuex"
+import {BaseState} from "~/store/base";
 
 interface PlacesRawResponse {
     modified: string
@@ -100,7 +101,7 @@ export class VaccinationPlace extends BasePlace {
     }
 }
 
-class State {
+class State extends BaseState {
     testingPlaces: TestingPlace[] = [];
     vaccinationPlaces: VaccinationPlace[] = [];
 

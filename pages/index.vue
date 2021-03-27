@@ -3,7 +3,7 @@
         <!-- TODO: extract to standalone component -->
         <div class="
             flex items-center justify-center
-            bg-indigo-400
+            bg-indigo-500
             z-[420]
             ">
             <div class="
@@ -22,8 +22,9 @@
                         'border-gray-500 bg-gray-300': !$store.state.places.showTesting,
                     }"
                     @click="$store.commit('places/showTesting', !$store.state.places.showTesting)"
+                    aria-label="Testovací místa"
                 >
-                    <img src="../assets/covid.svg" alt="" width="40">
+                    <img src="../assets/covid.svg" alt="" width="40" height="40">
                 </button>
                 <button
                     class="
@@ -36,8 +37,9 @@
                         'border-gray-500 bg-gray-300': !$store.state.places.showVaccination,
                     }"
                     @click="$store.commit('places/showVaccination', !$store.state.places.showVaccination)"
+                    aria-label="Vakcinační místa"
                 >
-                    <img src="../assets/syringe.svg" alt="" width="40">
+                    <img src="../assets/syringe.svg" alt="" width="40" height="40">
                 </button>
             </div>
             <label

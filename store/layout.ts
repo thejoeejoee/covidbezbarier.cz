@@ -1,8 +1,9 @@
 import * as _ from "lodash"
 import { $axios } from '~/utils/api'
 import {GetterTree, MutationTree, ActionTree} from "vuex"
+import {BaseState} from "~/store/base";
 
-class State {
+class State extends BaseState {
     headingExpanded: boolean = true;
 }
 

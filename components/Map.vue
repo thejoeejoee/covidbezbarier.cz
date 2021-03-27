@@ -6,8 +6,14 @@
                    :max-bounds="maxBounds" ref="map"
                    class="absolute bottom-0 top-0 left-0 right-0">
                 <l-tile-layer
-                    url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+                    url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 ></l-tile-layer>
+
+                <l-geo-json
+                    v-if="nutsGeoJson != null"
+                    :geojson="nutsGeoJson"
+                    :options-style="nutsStyleFunction"
+                ></l-geo-json>
 
                 <!--<l-tile-layer url="https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}"></l-tile-layer>-->
                 <template
@@ -21,8 +27,8 @@
                         :name="place.name"
                     >
                         <l-icon
-                            :icon-size="[42, 42]"
-                            :icon-anchor="[21, 42]"
+                            :icon-size="[32, 32]"
+                            :icon-anchor="[16, 32]"
                             :icon-url="require('../assets/covid-marker.svg')"
                         />
                     </l-marker>
@@ -38,8 +44,8 @@
                         @click="selectPlace($event, place)"
                     >
                         <l-icon
-                            :icon-size="[42, 42]"
-                            :icon-anchor="[21, 42]"
+                            :icon-size="[32, 32]"
+                            :icon-anchor="[16, 32]"
                             :icon-url="require('../assets/syringe-marker.svg')"
                         />
                     </l-marker>
@@ -86,9 +92,22 @@ import * as _ from 'lodash'
 import {TestingPlace, VaccinationPlace} from "~/store/places";
 import {LatLngBounds} from "leaflet";
 
+const loadNutsGeoJson = () => import('~/assets/nuts.json').then(m => m.default || m)
+
 @Component({})
 export default class Map extends Vue {
     maxBounds: LatLngBounds | null = null
+
+    nutsGeoJson: any | null = null;
+
+    nutsStyleFunction: Function = () => {
+        return {
+            weight: 2,
+            color: "rgb(129, 140, 248)",
+            opacity: .8,
+            fillOpacity: 0
+        };
+    };
 
     get map() : any {
         return this.$refs.map
@@ -107,6 +126,8 @@ export default class Map extends Vue {
             this.$L.latLng(51.2, 12),
             this.$L.latLng(48.5, 19),
         );
+
+        this.nutsGeoJson = await loadNutsGeoJson();
     }
 
     selectPlace($event: any, place: TestingPlace | VaccinationPlace | null) {
@@ -127,6 +148,7 @@ export default class Map extends Vue {
     get placeInDetail(): TestingPlace | VaccinationPlace | null {
         return this.$store.state.places.placeInDetail
     }
+
 }
 </script>
 
