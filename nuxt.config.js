@@ -62,6 +62,7 @@ export default {
         '@nuxtjs/axios',
         '@nuxtjs/sentry',
         ['nuxt-leaflet', {}],
+        'vue-geolocation-api/nuxt',
     ],
 
     publicRuntimeConfig: {

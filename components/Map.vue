@@ -1,40 +1,49 @@
 <template>
     <div class="flex-grow relative text-center" ref="root">
         <client-only>
-            <l-map :zoom=8 :center="[49.8, 15]" ref="map"
+            <l-map :zoom=8 :min-zoom=7
+                   :center="[49.8, 15]"
+                   :max-bounds="maxBounds" ref="map"
                    class="absolute bottom-0 top-0 left-0 right-0">
                 <l-tile-layer
                     url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-
                 ></l-tile-layer>
+
                 <!--<l-tile-layer url="https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}"></l-tile-layer>-->
-                <l-marker
-                    v-for="place in $store.state.places.testingPlaces"
-                    :key="place.id"
-                    :lat-lng="[place.latitude, place.longitude]"
-                    @click="selectPlace($event, place)"
-                    :name="place.name"
+                <template
+                    v-if="$store.state.places.showTesting"
                 >
-                    <l-icon
-                        :icon-size="[42, 42]"
-                        :icon-anchor="[21, 42]"
-                        :icon-url="require('../assets/covid-marker.svg')"
+                    <l-marker
+                        v-for="place in $store.state.places.testingPlaces"
+                        :key="place.id"
+                        :lat-lng="[place.latitude, place.longitude]"
+                        @click="selectPlace($event, place)"
+                        :name="place.name"
+                    >
+                        <l-icon
+                            :icon-size="[42, 42]"
+                            :icon-anchor="[21, 42]"
+                            :icon-url="require('../assets/covid-marker.svg')"
+                        />
+                    </l-marker>
+                </template>
 
-                    />
-                </l-marker>
-
-                <l-marker
-                    v-for="place in $store.state.places.vaccinationPlaces"
-                    :key="place.id"
-                    :lat-lng="[place.latitude, place.longitude]"
-                    @click="selectPlace($event, place)"
+                <template
+                    v-if="$store.state.places.showVaccination"
                 >
-                    <l-icon
-                        :icon-size="[42, 42]"
-                        :icon-anchor="[21, 42]"
-                        :icon-url="require('../assets/syringe-marker.svg')"
-                    />
-                </l-marker>
+                    <l-marker
+                        v-for="place in $store.state.places.vaccinationPlaces"
+                        :key="place.id"
+                        :lat-lng="[place.latitude, place.longitude]"
+                        @click="selectPlace($event, place)"
+                    >
+                        <l-icon
+                            :icon-size="[42, 42]"
+                            :icon-anchor="[21, 42]"
+                            :icon-url="require('../assets/syringe-marker.svg')"
+                        />
+                    </l-marker>
+                </template>
             </l-map>
         </client-only>
 
@@ -75,18 +84,29 @@ import {Component, Vue} from "nuxt-property-decorator";
 import ResizeObserver from 'resize-observer-polyfill'
 import * as _ from 'lodash'
 import {TestingPlace, VaccinationPlace} from "~/store/places";
+import {LatLngBounds} from "leaflet";
 
 @Component({})
 export default class Map extends Vue {
+    maxBounds: LatLngBounds | null = null
+
     get map() : any {
         return this.$refs.map
     }
 
-    mounted() {
+    async mounted() {
         const obs = new ResizeObserver(_.debounce(() => {
-            (this.$refs.map as any).mapObject.invalidateSize();
+            this.$nextTick(() => {
+                if (this.$refs.map)
+                    (this.$refs.map as any).mapObject.invalidateSize();
+            })
         }, 500))
         obs.observe(this.$refs.root as Element)
+
+        this.maxBounds = this.$L.latLngBounds(
+            this.$L.latLng(51.2, 12),
+            this.$L.latLng(48.5, 19),
+        );
     }
 
     selectPlace($event: any, place: TestingPlace | VaccinationPlace | null) {
@@ -97,7 +117,7 @@ export default class Map extends Vue {
         this.map.mapObject.setView({
             lat: latlng.lat - 0.001,
             lng: latlng.lng,
-        }, 17, { animation: true });
+        }, 15, { animation: true });
     }
 
     set placeInDetail(place: TestingPlace | VaccinationPlace | null) {

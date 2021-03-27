@@ -12,18 +12,31 @@
                 '-bottom-0' : this.isCollapsed,
                 '-bottom-8 -mt-5' : !this.isCollapsed,
             }">
-                <button class="
-                    border-green-300 bg-green-50
-                    rounded-l-full p-3 pl-4
-                    border-l-4 border-t-4 border-b-4 border-green-300
-                ">
+                <button
+                    class="
+                        rounded-l-full p-3 pl-4
+                        border-l-4 border-t-4 border-b-4
+                    "
+                    :class="{
+                        'border-green-300 bg-green-50': $store.state.places.showTesting,
+                        'border-gray-500 bg-gray-300': !$store.state.places.showTesting,
+                    }"
+                    @click="$store.commit('places/showTesting', !$store.state.places.showTesting)"
+                >
                     <img src="../assets/covid.svg" alt="" width="40">
                 </button>
-                <button class="
-                    border-green-300 bg-green-50
-                    rounded-r-full p-3 pr-4
-                    border-r-4 border-t-4 border-b-4 border-green-300
-                ">
+                <button
+                    class="
+                        border-green-300 bg-green-50
+                        rounded-r-full p-3 pr-4
+                        border-r-4 border-t-4 border-b-4 border-green-300
+                    "
+                    :class="{
+                        'border-green-300 bg-green-50': $store.state.places.showVaccination,
+                        'border-gray-500 bg-gray-300': !$store.state.places.showVaccination,
+                    }"
+                    @click="$store.commit('places/showVaccination', !$store.state.places.showVaccination)"
+                >
                     <img src="../assets/syringe.svg" alt="" width="40">
                 </button>
             </div>
@@ -67,28 +80,33 @@
                 /></client-only></span>
             </label>
 
-            <div class="
-                flex flex-row relative ml-5 mr-2 w-36 justify-start
-            " :class="{
-                '-bottom-0' : this.isCollapsed,
-                '-bottom-8 -mt-5' : !this.isCollapsed,
+            <div
+                class="
+                    flex flex-row relative ml-5 mr-2 w-36 justify-start
+                "
+                :class="{
+                    '-bottom-0' : this.isCollapsed,
+                    '-bottom-8 -mt-5' : !this.isCollapsed,
             }">
-                <button class="
-                    border-green-300 bg-green-50
-                    rounded-full p-3
-                    border-4 border-green-300
-                ">
+                <button
+                    @click="locateByPosition"
+                    class="
+                        border-green-300 bg-green-50
+                        rounded-full p-3
+                        border-4 border-green-300
+                        disabled:border-gray-500 disabled:bg-gray-300
+                    "
+                    :disabled="!$geolocation.supported"
+                    title="..."
+                >
                     <img src="../assets/location.svg" alt="" width="40">
                 </button>
             </div>
         </div>
 
         <div class="bg-gray-50 flex-grow flex">
-            <Map>
-
-            </Map>
+            <Map></Map>
         </div>
-
     </div>
 </template>
 
@@ -107,6 +125,8 @@ import {
     VuexModule
 } from "nuxt-property-decorator"
 import {TestingPlace} from "~/store/places";
+import {GeolocationPlugin} from "vue-geolocation-api";
+import Geolocation = GeolocationPlugin.Geolocation;
 
 @Component({})
 export default class IndexPage extends Vue {
@@ -132,6 +152,10 @@ export default class IndexPage extends Vue {
             this.$store.dispatch('places/loadTestingPlaces'),
             this.$store.dispatch('places/loadVaccinationPlaces'),
         ]);
+    }
+
+    async locateByPosition() {
+        console.log(await this.$geolocation.getCurrentPosition())
     }
 }
 </script>

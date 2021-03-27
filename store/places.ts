@@ -107,6 +107,9 @@ class State {
     modified!: Date;
 
     placeInDetail: TestingPlace | VaccinationPlace | null = null;
+
+    showTesting: boolean = true;
+    showVaccination: boolean = true;
 }
 
 export const state = () => new State;
@@ -138,7 +141,15 @@ export const mutations = <MutationTree<State>>{
     },
     setPlaceInDetail(state: State, place: VaccinationPlace | TestingPlace) {
         state.placeInDetail = place
-    }
+    },
+    showTesting(state: State, v: boolean) {
+        if (!v && !state.showVaccination) state.showVaccination = true;
+        state.showTesting = v
+    },
+    showVaccination(state: State, v: boolean) {
+        if (!v && !state.showTesting) state.showTesting = true;
+        state.showVaccination = v
+    },
 }
 
 export const actions = <ActionTree<State, any>>{
