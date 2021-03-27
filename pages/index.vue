@@ -101,7 +101,7 @@
                     :disabled="!$geolocation.supported"
                     title="..."
                 >
-                    <img src="../assets/location.svg" alt="" width="40">
+                    <img src="../assets/location.svg" alt="" width="40" height="40">
                 </button>
             </div>
         </div>

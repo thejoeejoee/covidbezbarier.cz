@@ -17,6 +17,7 @@ export default {
         },
         meta: [
             {charset: 'utf-8'},
+
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
             {
                 hid: 'author',
@@ -41,6 +42,26 @@ export default {
         ],
         link: [
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+            {
+                rel: "preconnect",
+                href: "https://a.tile.osm.org/",
+                crossorigin: true
+            },
+            {
+                rel: "preconnect",
+                href: "https://b.tile.osm.org/",
+                crossorigin: true
+            },
+            {
+                rel: "preconnect",
+                href: "https://c.tile.osm.org/",
+                crossorigin: true
+            },
+            {
+                rel: "preconnect",
+                href: "https://vitals.vercel-analytics.com/",
+                crossorigin: true
+            },
         ]
     },
 
