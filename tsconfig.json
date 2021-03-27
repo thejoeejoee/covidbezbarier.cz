@@ -28,7 +28,8 @@
             "@nuxt/types",
             "@nuxtjs/axios",
             "@types/node",
-            "nuxt-leaflet"
+            "nuxt-leaflet",
+            "nuxt-i18n"
         ]
     },
     "exclude": [

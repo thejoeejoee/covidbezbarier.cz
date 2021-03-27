@@ -173,3 +173,7 @@ export default class IndexPage extends Vue {
     }
 }
 </style>
+<i18n>
+{
+}
+</i18n>

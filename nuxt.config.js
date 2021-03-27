@@ -84,6 +84,7 @@ export default {
         '@nuxtjs/sentry',
         ['nuxt-leaflet', {}],
         'vue-geolocation-api/nuxt',
+        ['nuxt-i18n', {}]
     ],
 
     publicRuntimeConfig: {
@@ -101,5 +102,11 @@ export default {
 
     tailwindcss: {
         jit: true
+    },
+
+    i18n: {
+        locales: ['cs', 'en'],
+        defaultLocale: 'cs',
+        vueI18nLoader: true,
     }
 }

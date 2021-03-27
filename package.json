@@ -17,6 +17,7 @@
     "lodash": "^4.17.21",
     "node-geocoder": "^3.27.0",
     "nuxt": "^2.14.12",
+    "nuxt-i18n": "^6.22.2",
     "nuxt-leaflet": "^0.0.25",
     "nuxt-property-decorator": "^2.9.1",
     "resize-observer-polyfill": "^1.5.1",

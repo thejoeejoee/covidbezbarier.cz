@@ -8,7 +8,7 @@
                     text-gray-50 uppercase
                     ">
                     <!-- TODO: brand logo? -->
-                    Covid bez bariér
+                    {{ $t('headline') }}
                 </h1>
                 <h2 class="
                     sm:text-xl lg:text-xl xl:text-2xl
@@ -24,7 +24,7 @@
                         text-gray-50
                         max-w-md
                     ">
-                        interaktivní mapa bezbariérových míst pro&nbsp;testování a vakcinaci
+                        {{ $t('description') }}
                     </span>
                 </h2>
             </div>
@@ -62,3 +62,16 @@ export default class DefaultLayout extends Vue {
 <style>
 
 </style>
+
+<i18n>
+{
+    "cs": {
+        "headline": "Covid bez bariér",
+        "description": "interaktivní mapa bezbariérových míst pro testování a vakcinaci"
+    },
+    "en": {
+        "headline": "Covid without barriers",
+        "description": "interactive map with places with wheelchair access for testing and vaccination"
+    }
+}
+</i18n>
