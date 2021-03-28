@@ -24,7 +24,8 @@
     "sass": "^1.32.8",
     "vue-geolocation-api": "^0.1.21",
     "vue-typer": "^1.2.0",
-    "vue2-leaflet": "^2.6.0"
+    "vue2-leaflet": "^2.6.0",
+    "vue2-leaflet-markercluster": "^3.1.0"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.12",

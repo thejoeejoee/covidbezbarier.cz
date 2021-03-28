@@ -72,7 +72,8 @@ export default {
     css: [],
 
     plugins: [
-        {src: '~/plugins/vue-typer.client.ts', mode: 'client'},
+        {src: '~/plugins/vue-typer.client.ts'},
+        {src: '~/plugins/leaflet-markercluster.client.ts'},
         {src: '~/plugins/axios-accessor.ts'},
     ],
 

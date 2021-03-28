@@ -16,40 +16,45 @@
                 ></l-geo-json>
 
                 <!--<l-tile-layer url="https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}"></l-tile-layer>-->
-                <template
-                    v-if="$store.state.places.showTesting"
-                >
-                    <l-marker
-                        v-for="place in $store.state.places.testingPlaces"
-                        :key="place.id"
-                        :lat-lng="[place.latitude, place.longitude]"
-                        @click="selectPlace($event, place)"
-                        :name="place.name"
-                    >
-                        <l-icon
-                            :icon-size="[32, 32]"
-                            :icon-anchor="[16, 32]"
-                            :icon-url="require('../assets/covid-marker.svg')"
-                        />
-                    </l-marker>
-                </template>
 
-                <template
-                    v-if="$store.state.places.showVaccination"
+
+                <l-marker-cluster
+                    :options="{showCoverageOnHover: false}"
                 >
-                    <l-marker
-                        v-for="place in $store.state.places.vaccinationPlaces"
-                        :key="place.id"
-                        :lat-lng="[place.latitude, place.longitude]"
-                        @click="selectPlace($event, place)"
+                    <template
+                        v-if="$store.state.places.showVaccination"
                     >
-                        <l-icon
-                            :icon-size="[32, 32]"
-                            :icon-anchor="[16, 32]"
-                            :icon-url="require('../assets/syringe-marker.svg')"
-                        />
-                    </l-marker>
-                </template>
+                        <l-marker
+                            v-for="place in $store.state.places.vaccinationPlaces"
+                            :key="place.id"
+                            :lat-lng="[place.latitude, place.longitude]"
+                            @click="selectPlace($event, place)"
+                        >
+                            <l-icon
+                                :icon-size="[32, 32]"
+                                :icon-anchor="[16, 32]"
+                                :icon-url="require('../assets/syringe-marker.svg')"
+                            />
+                        </l-marker>
+                    </template>
+                    <template
+                        v-if="$store.state.places.showTesting"
+                    >
+                        <l-marker
+                            v-for="place in $store.state.places.testingPlaces"
+                            :key="place.id"
+                            :lat-lng="[place.latitude, place.longitude]"
+                            @click="selectPlace($event, place)"
+                            :name="place.name"
+                        >
+                            <l-icon
+                                :icon-size="[32, 32]"
+                                :icon-anchor="[16, 32]"
+                                :icon-url="require('../assets/covid-marker.svg')"
+                            />
+                        </l-marker>
+                    </template>
+                </l-marker-cluster>
             </l-map>
         </client-only>
 
@@ -152,8 +157,17 @@ export default class Map extends Vue {
 }
 </script>
 
-<style>
-    .grayscale {
-        filter: grayscale(50%);
+<style lang="scss">
+    @import "leaflet.markercluster/dist/MarkerCluster.css";
+    @import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+
+    .marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
+        @apply bg-opacity-60;
+        @apply bg-indigo-400;
+        div {
+            @apply bg-opacity-60;
+            @apply bg-indigo-600;
+            @apply text-gray-100;
+        }
     }
 </style>
