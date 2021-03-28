@@ -64,7 +64,8 @@
 
         <div class="
             flex justify-center
-            absolute h-48 md:h-[33vh] bottom-0 left-0 right-0
+            absolute bottom-0 left-0 right-0
+
             pointer-events-none z-[430]
         ">
             <div v-if="placeInDetail" class="
@@ -72,23 +73,118 @@
             p-4 m-5
             z-[430] pointer-events-auto
 
-            max-w-full
-            left-0 right-0
-
+            max-w-full border-t-4 border-indigo-700
+            left-0 right-0 shadow-xl
 
             flex flex-col justify-between
             transition-opacity duration-300 opacity-1
         ">
-                <div class="flex justify-between">
-                    <h2 class="text-md font-bold">{{ placeInDetail.name }}</h2>
-                    <button @click="placeInDetail = null">&cross;</button>
+                <div class="flex justify-between mb-2 items-start">
+                    <h2
+                        class="text-md font-bold whitespace-pre-line text-left"
+                        v-text="placeInDetail.name.split(',').join('\n')"
+                    ></h2>
+                    <!-- TODO: nah, ugly close icon, replace by better -->
+                    <button class="ml-4" @click="placeInDetail = null">&cross;</button>
                 </div>
-                {{ placeInDetail.address }}
-                <button class="
-                bg-indigo-700 text-white
-                uppercase rounded-md
-                p-2 self-end px-4
-            ">přejít na web</button>
+                <div class="flex flex-row justify-between items-start gap-x-2">
+                    <a
+                        class="
+                        align-top rounded-md bg-gray-100
+                        p-2 block
+                        md:flex md:flex-row md:items-center md:gap-2
+
+                    "
+                        :href="`http://maps.google.com/maps?q=${encodeURIComponent(placeInDetail.address)}`"
+                        target="_blank" rel="noopener"
+                    >
+                        <div class="hidden md:block select-none">
+                            <img src="../assets/location.svg" alt="" width="40" height="40">
+                        </div>
+                        <address
+                            class="whitespace-pre-line text-left pr-2 font-mono not-italic"
+                            v-text="placeInDetail.address.split(',').join('\n')"
+                        ></address>
+                    </a>
+
+                    <div class="flex flex-col gap-y-1">
+                        <template v-if="isVaccinationInDetail">
+                            <span
+                                class="
+                                    bg-gray-300 rounded-full text-xs p-1 px-2 text-gray-800
+                            ">vakcinační místo</span>
+                        </template>
+                        <template v-else>
+                            <span
+                                v-if="placeInDetail.nasofaryngealni_odber"
+                                class="
+                                bg-gray-300 rounded-full text-xs p-1 px-2 text-gray-800
+                            ">nasofaryngeální odběr</span>
+                            <span
+                                v-if="placeInDetail.orofaryngealni_odber"
+                                class="
+                                bg-gray-300 rounded-full text-xs p-1 px-2 text-gray-800
+                            "
+                            >orofaryngeální odběr</span>
+                            <span
+                                v-if="placeInDetail.antigenni_odber"
+                                class="
+                                bg-gray-300 rounded-full text-xs p-1 px-2 text-gray-800
+                            "
+                            >antigenní odběr</span>
+                        </template>
+                    </div>
+                </div>
+
+                <div v-if="isVaccinationInDetail" class="mt-2">
+                    <div
+                        v-if="!placeInDetail.operacni_status"
+                        class="
+                            my-2 p-2 px-4 bg-yellow-200 text-red-600 rounded-md
+                            shadow
+                        "
+                    >
+                        místo momentálně nepřijímá rezervace
+                    </div>
+                    <!-- TODO: show external icon -->
+                    <!-- TODO: don't forget to mention opendatalab in `about` page -->
+                    <a
+                        :href="`https://ockovani.opendatalab.cz/misto/${placeInDetail.id}`"
+                        target="_blank" rel="noopener"
+                        class="
+                            bg-indigo-700 text-white
+                            uppercase rounded-md block
+                            p-2 px-4 text-xs mb-1 shadow
+                    ">statistiky čekací doby</a>
+                    <a
+                        :href="`https://cfa.uzis.cz/vaccination-centers/${placeInDetail.id}`"
+                        target="_blank" rel="noopener"
+                        class="
+                            bg-indigo-700 text-white
+                            uppercase rounded-md block
+                            p-2 px-4 text-xs shadow
+                    ">oficiální stránka na MZČR</a>
+                </div>
+                <div v-else class="mt-2">
+                    <div
+                        v-if="!placeInDetail.operacni_status"
+                        class="
+                            mb-2 p-2 px-4 bg-yellow-200 text-red-600 rounded-md
+                            shadow
+                        "
+                    >
+                        místo je momentálně mimo provoz
+                    </div>
+                    <!-- TODO: show external icon -->
+                    <a
+                        :href="`https://cfa.uzis.cz/sampling-points/${placeInDetail.id}`"
+                        target="_blank" rel="noopener"
+                        class="
+                            bg-indigo-700 text-white
+                            uppercase rounded-md block
+                            p-2 px-4 text-xs mt-2 shadow
+                    ">oficiální stránka na MZČR</a>
+                </div>
             </div>
         </div>
     </div>
@@ -98,7 +194,7 @@
 import {Component, Vue} from "nuxt-property-decorator";
 import ResizeObserver from 'resize-observer-polyfill'
 import * as _ from 'lodash'
-import {TestingPlace, VaccinationPlace} from "~/store/places";
+import {PlaceType, TestingPlace, VaccinationPlace} from "~/store/places";
 import {LatLngBounds} from "leaflet";
 
 const loadNutsGeoJson = () => import('~/assets/nuts.json').then(m => m.default || m)
@@ -118,7 +214,7 @@ export default class Map extends Vue {
         };
     };
 
-    get map() : any {
+    get map(): any {
         return this.$refs.map
     }
 
@@ -142,12 +238,17 @@ export default class Map extends Vue {
     selectPlace($event: any, place: TestingPlace | VaccinationPlace | null) {
         this.placeInDetail = place
         console.log($event)
-        const {latlng} : {latlng: any} = $event;
+        const {latlng}: { latlng: any } = $event;
 
         this.map.mapObject.setView({
-            lat: latlng.lat - 0.001,
-            lng: latlng.lng,
-        }, 15, { animation: true });
+                lat: latlng.lat - 0.001,
+                lng: latlng.lng,
+            },
+            15, // TODO: base detail zoom on starting zoon
+            {animation: true});
+        if (!place) return;
+
+        this.$router.push({hash: `${place.type}-${place.id}`})
     }
 
     set placeInDetail(place: TestingPlace | VaccinationPlace | null) {
@@ -158,20 +259,23 @@ export default class Map extends Vue {
         return this.$store.state.places.placeInDetail
     }
 
+    get isVaccinationInDetail() {
+        return this.placeInDetail?.type == PlaceType.VACCINATION
+    }
 }
 </script>
 
 <style lang="scss">
-    @import "leaflet.markercluster/dist/MarkerCluster.css";
-    @import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+@import "leaflet.markercluster/dist/MarkerCluster.css";
+@import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 
-    .marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
+.marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
+    @apply bg-opacity-60;
+    @apply bg-indigo-400;
+    div {
         @apply bg-opacity-60;
-        @apply bg-indigo-400;
-        div {
-            @apply bg-opacity-60;
-            @apply bg-indigo-600;
-            @apply text-gray-100;
-        }
+        @apply bg-indigo-600;
+        @apply text-gray-100;
     }
+}
 </style>

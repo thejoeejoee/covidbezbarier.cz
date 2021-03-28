@@ -9,7 +9,13 @@ interface PlacesRawResponse {
     data: any[]
 }
 
+export enum PlaceType {
+    TESTING= 'T',
+    VACCINATION = 'V',
+}
+
 export abstract class BasePlace {
+    readonly abstract type : PlaceType;
     readonly latitude : number;
     readonly longitude : number;
 
@@ -28,6 +34,8 @@ export abstract class BasePlace {
 }
 
 export class TestingPlace extends BasePlace {
+    type = PlaceType.TESTING
+
     readonly okres_nuts_kod!: string//"CZ0100",
     readonly operacni_status!: boolean //true,
     readonly testovaci_kapacita!: bigint
@@ -67,6 +75,8 @@ export class TestingPlace extends BasePlace {
 }
 
 export class VaccinationPlace extends BasePlace {
+    type = PlaceType.VACCINATION
+
     readonly okres_nuts_kod!: string//"CZ0100",
     readonly nrpzs_kod!: string//"CZ0100",
     readonly operacni_status!: boolean //true,

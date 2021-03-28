@@ -36,7 +36,7 @@
                     <img src="../assets/covid.svg" alt="" width="40" height="40">
                 </button><button
                     class="
-                        border-green-300 bg-green-50
+                        bg-green-50
                         rounded-r-full p-3 pr-4
                         border-r-4 border-t-4 border-b-4 border-green-300
                     "
