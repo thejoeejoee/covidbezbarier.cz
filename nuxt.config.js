@@ -43,6 +43,10 @@ export default {
         link: [
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
             {
+                rel: "preload",
+                href: "https://a.tile.osm.org/8/138/87.png",
+                as: "image"
+            },            {
                 rel: "preconnect",
                 href: "https://a.tile.osm.org/",
                 crossorigin: true

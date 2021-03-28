@@ -6,7 +6,7 @@
                    :max-bounds="maxBounds" ref="map"
                    class="absolute bottom-0 top-0 left-0 right-0">
                 <l-tile-layer
-                    url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
+                    url="https://a.tile.osm.org/{z}/{x}/{y}.png"
                 ></l-tile-layer>
 
                 <l-geo-json
