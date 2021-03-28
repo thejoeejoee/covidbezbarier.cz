@@ -19,7 +19,11 @@
 
 
                 <l-marker-cluster
-                    :options="{showCoverageOnHover: false}"
+                    :options="{
+                        showCoverageOnHover: false,
+                        spiderfyOnMaxZoom: false,
+                        disableClusteringAtZoom: 12
+                    }"
                 >
                     <template
                         v-if="$store.state.places.showVaccination"
