@@ -5,14 +5,14 @@
             flex items-center
             bg-indigo-500
             flex-row
-            justify-items-start md:justify-center
+            justify-center
             flex-wrap content-start
             z-[420]
             ">
             <div class="
                 w-1/2 relative
                 md:w-36 md:mr-5 md:ml-2 md:flex-1 md:pl-0
-                pl-2
+                pl-2 min-w-[8rem]
 
                 self-start  md:self-center
                 order-1 md:order-none
@@ -60,8 +60,8 @@
                     mx-2 md:mx-0
                 "
                 :class="{
-                        'my-3 md:my-20 lg:my-36 -bottom-0' : this.isExpanded,
-                        'my-18 -bottom-8 -mt-5' : !this.isExpanded,
+                        'my-3 md:my-20 lg:my-32 -bottom-0' : this.isExpanded,
+                        'my-18 -bottom-6 md:-bottom-8 -mt-5' : !this.isExpanded,
                     }"
 
                 for="searchInput"
@@ -82,7 +82,7 @@
                     type="text" id="searchInput"
                 >
                 <span class="
-                        absolute top-1/4 text-xl md:text-2xl pl-4 md:pl-10
+                        absolute top-1/4 text-xl md:text-2xl pl-4 md:pl-5
                     "><client-only><vue-typer
                     v-if="isExpanded"
                     :text="proposalPlaces"
