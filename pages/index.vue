@@ -84,7 +84,7 @@
                 <span class="
                         absolute top-1/4 text-xl md:text-2xl pl-4 md:pl-5
                     "><client-only><vue-typer
-                    v-if="isExpanded"
+                    v-if="!searchInput.length"
                     :text="proposalPlaces"
                     :repeat="Infinity"
                     initial-action="typing"
@@ -106,7 +106,7 @@
                     pr-2 md:pr-0
 
                     self-end md:self-center
-                    w-1/2
+                    w-auto
                     md:justify-start
                     order-2 md:order-none
                 "

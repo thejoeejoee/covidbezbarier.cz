@@ -4,7 +4,7 @@
             <div class="bg-indigo-500">
                 <h1 class="
                     font-black pt-4 md:pt-8 pb-2 text-center font-mono
-                    text-3xl sm:text-4xl lg:text-6xl xl:text-7xl
+                    text-2xl sm:text-4xl lg:text-6xl xl:text-7xl
                     text-gray-50 uppercase
                     ">
                     <!-- TODO: brand logo? -->

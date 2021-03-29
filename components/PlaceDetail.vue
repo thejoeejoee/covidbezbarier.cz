@@ -135,16 +135,16 @@
 </template>
 <script lang="ts">
 import {PlaceType, TestingPlace, VaccinationPlace} from "~/store/places";
+import {Component, Prop, Vue} from "nuxt-property-decorator";
 
-export default {
-    name: 'PlaceDetail',
-    props: {
-        place: {type: VaccinationPlace | TestingPlace | null}
-    },
-    computed: {
-        isVaccinationInDetail() {
-            return this.place?.type == PlaceType.VACCINATION
-        }
+@Component({})
+export default class DefaultLayout extends Vue {
+    @Prop()
+    place: VaccinationPlace | TestingPlace | null = null;
+
+    get isVaccinationInDetail() {
+        return this.place?.type == PlaceType.VACCINATION
     }
+
 }
 </script>

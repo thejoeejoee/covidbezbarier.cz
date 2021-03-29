@@ -89,7 +89,8 @@ export default {
         '@nuxtjs/sentry',
         ['nuxt-leaflet', {}],
         'vue-geolocation-api/nuxt',
-        ['nuxt-i18n', {}]
+        ['nuxt-i18n', {}],
+        '@nuxtjs/gtm',
     ],
 
     publicRuntimeConfig: {
@@ -107,6 +108,10 @@ export default {
 
     tailwindcss: {
         jit: true
+    },
+
+    gtm: {
+        id: process.env.GTM_ID || ''
     },
 
     i18n: {
