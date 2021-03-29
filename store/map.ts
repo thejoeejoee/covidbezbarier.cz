@@ -10,14 +10,14 @@ export interface Location {
 }
 
 class State extends BaseState {
-    userLocation: Location | null = null
+    targetLocation: Location | null = null
 }
 
 export const state = () => new State;
 
 export const mutations = <MutationTree<State>>{
-    setUserLocation(state: State, location: Location | null) {
-        state.userLocation = location
+    setTargetLocation(state: State, location: Location | null) {
+        state.targetLocation = location
     },
 }
 

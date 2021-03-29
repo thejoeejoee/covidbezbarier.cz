@@ -145,8 +145,8 @@ export default class Map extends Vue {
         return this.$store.state.places.placeInDetail
     }
 
-    @Watch('$store.state.map.userLocation', {deep: true})
-    onUserLocationUpdate(location: Location) {
+    @Watch('$store.state.map.targetLocation', {deep: true})
+    ontargetLocationUpdate(location: Location) {
         this.map.mapObject.setView({
                 lat: location.lat,
                 lng: location.lng,

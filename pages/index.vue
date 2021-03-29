@@ -75,12 +75,10 @@
                     block mx-auto w-full
                     bg-green-50
                     "
-                    :class="[
-                        this.isExpanded ? '' : ''
-                    ]"
                     v-model="searchInput"
                     type="text" id="searchInput"
-                >
+                    :class="{'bg-green-50': !loading, 'bg-red-50': loading}"
+                ><!-- TODO loading state -->
                 <span class="
                         absolute top-1/4 text-xl md:text-2xl pl-4 md:pl-5
                     "><client-only><vue-typer
@@ -152,6 +150,7 @@ import {
 } from "nuxt-property-decorator"
 import {TestingPlace} from "~/store/places";
 import {GeolocationPlugin} from "vue-geolocation-api";
+import debounce from "debounce-async";
 import Geolocation = GeolocationPlugin.Geolocation;
 import Position = GeolocationPlugin.Position;
 
@@ -159,6 +158,7 @@ import Position = GeolocationPlugin.Position;
 export default class IndexPage extends Vue {
     searchInputRaw: string = ''
     geoDisabled = false
+    loading = false;
 
     proposalPlaces: string[] = ['Brno', 'Olomouc', 'Praha', 'Liberec', 'České Budějovice', 'Červená Lhota']
 
@@ -167,8 +167,9 @@ export default class IndexPage extends Vue {
     }
 
     set searchInput(v: string) {
-        this.searchInputRaw = v || ''
-        this.$store.commit('layout/setHeadingExpanded', v.length == 0)
+        this.searchInputRaw = v || '';
+        this.$store.commit('layout/setHeadingExpanded', v.length == 0);
+        this.loadSearchResults && this.loadSearchResults()
     }
 
     get isExpanded() {
@@ -184,8 +185,9 @@ export default class IndexPage extends Vue {
 
     async locateByPosition() {
         try {
+            this.loading = true;
             const loc: Position = await this.$geolocation.getCurrentPosition();
-            this.$store.commit('map/setUserLocation', {
+            this.$store.commit('map/setTargetLocation', {
                 lat: loc.coords.latitude,
                 lng: loc.coords.longitude,
                 acc: loc.coords.accuracy,
@@ -193,6 +195,30 @@ export default class IndexPage extends Vue {
         } catch (e) {
             this.geoDisabled = true
         }
+        this.loading = false;
+    }
+
+    async loadSearchResults() {
+        this.loading = true;
+        try {
+            const {data} = await this.$axios.get(
+                `/nominatim?format=json&polygon=0&addressdetails=0&countrycodes=cz&limit=1&q=${encodeURIComponent(this.searchInputRaw)}`
+            )
+
+            if (data.length)
+                this.$store.commit('map/setTargetLocation', {
+                    lat: Number(data[0].lat),
+                    lng: Number(data[0].lon),
+                    acc: 0,
+                })
+            else;
+                // TODO: signalize no results
+            this.loading = false;
+        } catch (e) {this.loading = false; throw e;}
+    }
+
+    created() {
+        this.loadSearchResults = debounce(this.loadSearchResults, 750)
     }
 }
 </script>

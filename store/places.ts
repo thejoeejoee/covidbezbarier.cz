@@ -165,7 +165,7 @@ export const actions = <ActionTree<State, any>>{
     async loadTestingPlaces({state, commit}) {
         // TODO: to config
         const response = await $axios.$get(
-            'https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/prehled-odberovych-mist.json'
+            '/covid/prehled-odberovych-mist.json'
         )
         commit(
             'setTestingPlacesResponse',
@@ -175,7 +175,7 @@ export const actions = <ActionTree<State, any>>{
     async loadVaccinationPlaces({state, commit}) {
         // TODO: to config
         const response = await $axios.$get(
-            'https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/prehled-ockovacich-mist.json'
+            '/covid/prehled-ockovacich-mist.json'
         )
         commit(
             'setVaccinationPlacesResponse',

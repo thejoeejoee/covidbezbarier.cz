@@ -46,7 +46,8 @@ export default {
                 rel: "preload",
                 href: "https://a.tile.osm.org/8/138/87.png",
                 as: "image"
-            },            {
+            },
+            {
                 rel: "preconnect",
                 href: "https://a.tile.osm.org/",
                 crossorigin: true
@@ -91,13 +92,26 @@ export default {
         'vue-geolocation-api/nuxt',
         ['nuxt-i18n', {}],
         '@nuxtjs/gtm',
+        '@nuxtjs/proxy',
     ],
 
     publicRuntimeConfig: {
         baseUrl,
     },
 
-    axios: {},
+    axios: {
+        proxy: true,
+    },
+
+    proxy: {
+        '/nominatim': {target: 'https://nominatim.openstreetmap.org/search', changeOrigin: true},
+        '/covid': {
+            target: 'https://onemocneni-aktualne.mzcr.cz',
+            changeOrigin: true,
+            pathRewrite: {'^/covid/': '/api/v2/covid-19/'}
+        },
+    },
+
 
     build: {},
 
