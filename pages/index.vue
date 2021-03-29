@@ -12,7 +12,7 @@
             <div class="
                 w-1/2 relative
                 md:w-36 md:mr-5 md:ml-2 md:flex-1 md:pl-0
-                pl-2 min-w-[8rem]
+                pl-2 min-w-[9rem]
 
                 self-start  md:self-center
                 order-1 md:order-none
