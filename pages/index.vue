@@ -122,7 +122,7 @@
                         border-4 border-green-300
                         disabled:border-gray-500 disabled:bg-gray-300
                     "
-                    :disabled="!$geolocation.supported"
+                    :disabled="!$geolocation.supported || geoDisabled"
                     title="..."
                 >
                     <img src="../assets/location.svg" alt="" width="40" height="40">
@@ -153,10 +153,12 @@ import {
 import {TestingPlace} from "~/store/places";
 import {GeolocationPlugin} from "vue-geolocation-api";
 import Geolocation = GeolocationPlugin.Geolocation;
+import Position = GeolocationPlugin.Position;
 
 @Component({})
 export default class IndexPage extends Vue {
     searchInputRaw: string = ''
+    geoDisabled = false
 
     proposalPlaces: string[] = ['Brno', 'Olomouc', 'Praha', 'Liberec', 'České Budějovice', 'Červená Lhota']
 
@@ -181,7 +183,16 @@ export default class IndexPage extends Vue {
     }
 
     async locateByPosition() {
-        console.log(await this.$geolocation.getCurrentPosition())
+        try {
+            const loc: Position = await this.$geolocation.getCurrentPosition();
+            this.$store.commit('map/setUserLocation', {
+                lat: loc.coords.latitude,
+                lng: loc.coords.longitude,
+                acc: loc.coords.accuracy,
+            })
+        } catch (e) {
+            this.geoDisabled = true
+        }
     }
 }
 </script>

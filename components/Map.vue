@@ -77,16 +77,16 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "nuxt-property-decorator";
+import {Component, Vue, Watch} from "nuxt-property-decorator";
 import ResizeObserver from 'resize-observer-polyfill'
 import * as _ from 'lodash'
 import {TestingPlace, VaccinationPlace} from "~/store/places";
+import {Location} from "~/store/map";
 import {LatLngBounds} from "leaflet";
 
 const loadNutsGeoJson = () => import('~/assets/nuts.json').then(m => m.default || m)
 
-@Component({
-})
+@Component({})
 export default class Map extends Vue {
     maxBounds: LatLngBounds | null = null
 
@@ -124,14 +124,13 @@ export default class Map extends Vue {
 
     selectPlace($event: any, place: TestingPlace | VaccinationPlace | null) {
         this.placeInDetail = place
-        console.log($event)
         const {latlng}: { latlng: any } = $event;
 
         this.map.mapObject.setView({
                 lat: latlng.lat - 0.001,
                 lng: latlng.lng,
             },
-            15, // TODO: base detail zoom on starting zoon
+            15, // TODO: base detail zoom on starting zoom
             {animation: true});
         if (!place) return;
 
@@ -144,6 +143,17 @@ export default class Map extends Vue {
 
     get placeInDetail(): TestingPlace | VaccinationPlace | null {
         return this.$store.state.places.placeInDetail
+    }
+
+    @Watch('$store.state.map.userLocation', {deep: true})
+    onUserLocationUpdate(location: Location) {
+        this.map.mapObject.setView({
+                lat: location.lat,
+                lng: location.lng,
+            },
+            12,
+            {animation: true}
+        );
     }
 }
 </script>

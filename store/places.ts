@@ -29,8 +29,6 @@ export abstract class BasePlace {
         this.latitude = Number(lat)
         this.longitude = Number(long)
     }
-
-    abstract get icon() : any;
 }
 
 export class TestingPlace extends BasePlace {
