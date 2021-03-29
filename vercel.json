@@ -1,0 +1,12 @@
+{
+    "rewrites": [
+        {
+            "source": "/nominatim",
+            "destination": "https://nominatim.openstreetmap.org/search"
+        },
+        {
+            "source": "/covid/:match*",
+            "destination": "https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/:match*"
+        }
+    ]
+}
