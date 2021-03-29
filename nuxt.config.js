@@ -82,6 +82,7 @@ export default {
     buildModules: [
         '@nuxt/typescript-build',
         '@nuxtjs/tailwindcss',
+        '@nuxtjs/eslint-module',
     ],
 
     modules: [
