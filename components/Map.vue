@@ -1,6 +1,5 @@
 <template>
     <div class="flex-grow relative text-center" ref="root">
-        <client-only>
             <l-map :zoom=8 :min-zoom=7
                    :center="[49.8, 15]"
                    :max-bounds="maxBounds" ref="map"
@@ -8,7 +7,6 @@
                 <l-tile-layer
                     url="https://a.tile.osm.org/{z}/{x}/{y}.png"
                 ></l-tile-layer>
-
                 <l-geo-json
                     v-if="nutsGeoJson != null"
                     :geojson="nutsGeoJson"
@@ -16,7 +14,6 @@
                 ></l-geo-json>
 
                 <!--<l-tile-layer url="https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}"></l-tile-layer>-->
-
 
                 <l-marker-cluster
                     :options="{
@@ -34,6 +31,7 @@
                             :lat-lng="[place.latitude, place.longitude]"
                             @click="selectPlace($event, place)"
                         >
+                            <!-- TODO: size dependent on zoom -->
                             <l-icon
                                 :icon-size="[32, 32]"
                                 :icon-anchor="[16, 32]"
@@ -51,6 +49,7 @@
                             @click="selectPlace($event, place)"
                             :name="place.name"
                         >
+                            <!-- TODO: size dependent on zoom -->
                             <l-icon
                                 :icon-size="[32, 32]"
                                 :icon-anchor="[16, 32]"
@@ -60,7 +59,6 @@
                     </template>
                 </l-marker-cluster>
             </l-map>
-        </client-only>
 
         <div class="
             flex justify-center
