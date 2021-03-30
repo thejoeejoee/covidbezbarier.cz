@@ -200,7 +200,7 @@ export default class IndexPage extends Vue {
 
     async loadSearchResults() {
         this.loading = true;
-        const BASE_URL = process.static ? 'https://nominatim.openstreetmap.org/search' : '/nominatim'
+        const BASE_URL = process.env.NODE_ENV === 'production' ?  '/nominatim' : 'https://nominatim.openstreetmap.org/search';
         try {
             const {data} = await this.$axios.get(
                 `${BASE_URL}?format=json&polygon=0&addressdetails=0&countrycodes=cz&limit=1&q=${encodeURIComponent(this.searchInputRaw)}`
