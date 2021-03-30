@@ -154,7 +154,7 @@ import debounce from "debounce-async";
 import Geolocation = GeolocationPlugin.Geolocation;
 import Position = GeolocationPlugin.Position;
 
-@Component({})
+@Component({fetchOnServer: false})
 export default class IndexPage extends Vue {
     searchInputRaw: string = ''
     geoDisabled = false
@@ -177,7 +177,7 @@ export default class IndexPage extends Vue {
     }
 
     async fetch() {
-        return Promise.all([
+        await Promise.all([
             this.$store.dispatch('places/loadTestingPlaces'),
             this.$store.dispatch('places/loadVaccinationPlaces'),
         ]);
@@ -200,9 +200,10 @@ export default class IndexPage extends Vue {
 
     async loadSearchResults() {
         this.loading = true;
+        const BASE_URL = process.static ? 'https://nominatim.openstreetmap.org/search' : '/nominatim'
         try {
             const {data} = await this.$axios.get(
-                `/nominatim?format=json&polygon=0&addressdetails=0&countrycodes=cz&limit=1&q=${encodeURIComponent(this.searchInputRaw)}`
+                `${BASE_URL}?format=json&polygon=0&addressdetails=0&countrycodes=cz&limit=1&q=${encodeURIComponent(this.searchInputRaw)}`
             )
 
             if (data.length)

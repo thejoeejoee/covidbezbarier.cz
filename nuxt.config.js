@@ -8,7 +8,7 @@ const title = 'Covid bez bariér'
 const description = 'Covid bez bariér – interaktivní mapa bezbariérových míst na testování a očkování proti Covid-19'
 
 export default {
-    target: 'universal',
+    target: 'static',
 
     head: {
         title: 'Covid bez bariér',

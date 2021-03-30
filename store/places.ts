@@ -3,6 +3,8 @@ import { $axios } from '~/utils/api'
 import {GetterTree, MutationTree, ActionTree} from "vuex"
 import {BaseState} from "~/store/base";
 
+const BASE_URL = process.static ? 'https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19' : '/covid';
+
 interface PlacesRawResponse {
     modified: string
     source: string
@@ -152,6 +154,7 @@ export const mutations = <MutationTree<State>>{
         state.placeInDetail = place
     },
     showTesting(state: State, v: boolean) {
+        // TODO: UX cries
         if (!v && !state.showVaccination) state.showVaccination = true;
         state.showTesting = v
     },
@@ -165,7 +168,7 @@ export const actions = <ActionTree<State, any>>{
     async loadTestingPlaces({state, commit}) {
         // TODO: to config
         const response = await $axios.$get(
-            '/covid/prehled-odberovych-mist.json'
+            `${BASE_URL}/prehled-odberovych-mist.json`
         )
         commit(
             'setTestingPlacesResponse',
@@ -175,7 +178,7 @@ export const actions = <ActionTree<State, any>>{
     async loadVaccinationPlaces({state, commit}) {
         // TODO: to config
         const response = await $axios.$get(
-            '/covid/prehled-ockovacich-mist.json'
+            `${BASE_URL}/prehled-ockovacich-mist.json`
         )
         commit(
             'setVaccinationPlacesResponse',
