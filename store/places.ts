@@ -3,7 +3,7 @@ import { $axios } from '~/utils/api'
 import {GetterTree, MutationTree, ActionTree} from "vuex"
 import {BaseState} from "~/store/base";
 
-const BASE_URL = process.static ? 'https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19' : '/covid';
+const BASE_URL = '/covid';
 
 interface PlacesRawResponse {
     modified: string
