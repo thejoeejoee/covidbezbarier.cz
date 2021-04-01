@@ -31,7 +31,6 @@
                             :lat-lng="[place.latitude, place.longitude]"
                             @click="selectPlace($event, place)"
                         >
-                            <!-- TODO: size dependent on zoom -->
                             <l-icon
                                 v-bind="markerAttrs"
                                 :icon-url="require('../assets/syringe-marker.svg')"
@@ -48,7 +47,6 @@
                             @click="selectPlace($event, place)"
                             :name="place.name"
                         >
-                            <!-- TODO: size dependent on zoom -->
                             <l-icon
                                 v-bind="markerAttrs"
                                 :icon-url="require('../assets/covid-marker.svg')"

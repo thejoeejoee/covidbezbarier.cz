@@ -5,5 +5,4 @@ const acc: Plugin = ({ $axios }) => {
     initializeAxios($axios)
 }
 
-
 export default acc;

@@ -176,13 +176,6 @@ export default class IndexPage extends Vue {
         return this.$store.state.layout.headingExpanded && !this.$store.state.places.placeInDetail
     }
 
-    async fetch() {
-        await Promise.all([
-            this.$store.dispatch('places/loadTestingPlaces'),
-            this.$store.dispatch('places/loadVaccinationPlaces'),
-        ]);
-    }
-
     async locateByPosition() {
         try {
             this.loading = true;

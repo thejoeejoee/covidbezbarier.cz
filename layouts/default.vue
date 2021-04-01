@@ -53,6 +53,13 @@ import {TestingPlace} from "~/store/places";
 
 @Component({})
 export default class DefaultLayout extends Vue {
+    async fetch() {
+        await Promise.all([
+            this.$store.dispatch('places/loadTestingPlaces'),
+            this.$store.dispatch('places/loadVaccinationPlaces'),
+        ]);
+    }
+
     get expanded() {
         return this.$store.state.layout.headingExpanded && !this.$store.state.places.placeInDetail
     }
