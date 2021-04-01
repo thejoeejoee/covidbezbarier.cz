@@ -33,8 +33,7 @@
                         >
                             <!-- TODO: size dependent on zoom -->
                             <l-icon
-                                :icon-size="[32, 32]"
-                                :icon-anchor="[16, 32]"
+                                v-bind="markerAttrs"
                                 :icon-url="require('../assets/syringe-marker.svg')"
                             />
                         </l-marker>
@@ -51,8 +50,7 @@
                         >
                             <!-- TODO: size dependent on zoom -->
                             <l-icon
-                                :icon-size="[32, 32]"
-                                :icon-anchor="[16, 32]"
+                                v-bind="markerAttrs"
                                 :icon-url="require('../assets/covid-marker.svg')"
                             />
                         </l-marker>
@@ -87,6 +85,11 @@ const loadNutsGeoJson = () => import('~/assets/nuts.json').then(m => m.default |
 @Component({})
 export default class Map extends Vue {
     maxBounds: LatLngBounds | null = null
+
+    markerAttrs = {
+        iconSize: [48, 48],
+        iconAnchor: [24, 48],
+    }
 
     nutsGeoJson: any | null = null;
 

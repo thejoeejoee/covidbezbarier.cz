@@ -17,7 +17,7 @@
                 v-text="place.name.split(',').join('\n')"
             ></h2>
             <!-- TODO: nah, ugly close icon, replace by better -->
-            <button class="ml-4" @click="$emit('close')">&cross;</button>
+            <button class="ml-4" @click="$emit('close')" aria-label="Zavřít">&cross;</button>
         </div>
         <div
             v-if="!place.operacni_status"
@@ -48,7 +48,7 @@
                 </div>
                 <address
                     class="whitespace-pre-line text-left pr-2 font-mono not-italic lg:text-lg"
-                    v-text="place.address.split(/[,;]/).join('\n')"
+                    v-text="place.address.split(/[,;]/).map(s => s.trim()).join('\n')"
                 ></address>
             </a>
 
