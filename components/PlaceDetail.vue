@@ -27,10 +27,10 @@
             "
         >
             <template v-if="isVaccinationInDetail">
-                místo momentálně nepřijímá rezervace
+                {{ $t("vaccinationPlace.statusClosed") }}
             </template>
             <template v-else>
-                místo je momentálně mimo provoz
+                {{ $t("testingPlace.statusClosed") }}
             </template>
         </div>
         <div class="flex flex-row justify-between items-start gap-x-2">
@@ -59,12 +59,12 @@
                         class="
                             bg-green-200 rounded-full text-xs p-1 px-2 text-green-900
                             lg:text-lg
-                    ">bezbariérový přístup</span>
+                    ">{{ $t("vaccinationPlace.wheelchairAccess") }}</span>
                     <span
                         class="
                             bg-gray-300 rounded-full text-xs p-1 px-2 text-gray-900
                             lg:text-lg
-                    ">vakcinační místo</span>
+                    ">{{ $t("vaccinationPlace.vaccinationPlace") }}</span>
                 </template>
                 <template v-else>
                     <span
@@ -79,20 +79,20 @@
                             bg-gray-300 rounded-full text-xs p-1 px-2 text-gray-900
                             lg:text-lg
                         "
-                    >antigenní odběr</span>
+                    >{{ $t("testingPlace.antigen") }}</span>
                     <span
                         v-if="place.nasofaryngealni_odber"
                         class="
                             bg-gray-300 rounded-full text-xs p-1 px-2 text-gray-900
                             lg:text-lg
-                    ">nasofaryngeální odběr</span>
+                    ">{{ $t("testingPlace.nasopharynx") }}</span>
                     <span
                         v-if="place.orofaryngealni_odber"
                         class="
                             bg-gray-300 rounded-full text-xs p-1 px-2 text-gray-900
                             lg:text-lg
                         "
-                    >orofaryngeální odběr</span>
+                    >{{ $t("testingPlace.oropharynx") }}</span>
                 </template>
             </div>
         </div>
@@ -108,7 +108,7 @@
                     uppercase rounded-md block
                     p-2 px-4 shadow
                     lg:text-lg
-                ">statistiky čekací doby</a>
+                ">{{ $t("waitingStats") }}</a>
             <a
                 :href="`https://cfa.uzis.cz/vaccination-centers/${place.id}`"
                 target="_blank" rel="noopener"
@@ -117,7 +117,7 @@
                     uppercase rounded-md block
                     p-2 px-4 shadow
                     lg:text-lg
-                ">oficiální stránka na MZČR</a>
+                ">{{ $t("MZCRSite") }}</a>
         </template>
         <template v-else>
             <!-- TODO: show external icon -->
@@ -129,7 +129,7 @@
                     uppercase rounded-md block
                     p-2 px-4 shadow
                     lg:text-lg
-                ">oficiální stránka na MZČR</a>
+                ">{{ $t("MZCRSite") }}</a>
         </template>
     </div>
 </template>
@@ -148,3 +148,37 @@ export default class DefaultLayout extends Vue {
 
 }
 </script>
+<i18n>
+{
+    "cs": {
+        "MZCRSite": "Oficiální stránka na MZČR",
+        "waitingStats": "Statistiky čekací doby",
+        "testingPlace": {
+            "antigen": "Antigenní odběr",
+            "oropharynx": "Orofaryngeální odběr",
+            "nasopharynx": "Nasofaryngeální odběr",
+            "statusClosed": "Místo je momentálně mimo provoz"
+        },
+        "vaccinationPlace": {
+            "wheelchairAccess": "Bezbariérový přístup",
+            "vaccinationPlace": "Vakcinační místo",
+            "statusClosed": "Místo momentálně nepřijímá rezervace"
+        }
+    },
+    "en": {
+        "MZCRSite": "Official site of MZČR",
+        "waitingStats": "Waiting time statistics",
+        "testingPlace": {
+            "antigen": "Antigen testing",
+            "oropharynx": "Oropharyngeal testing",
+            "nasopharynx": "Nasopharyngeal testing",
+            "statusClosed": "Currently out of order"
+        },
+        "vaccinationPlace": {
+            "wheelchairAccess": "Wheelchair access",
+            "vaccinationPlace": "Vaccination place",
+            "statusClosed": "Not currently accepting reservations"
+        }
+    }
+}
+</i18n>

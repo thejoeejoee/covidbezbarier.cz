@@ -1,5 +1,8 @@
 <template>
     <div class="w-full flex-grow flex flex-col">
+        <h2 class="bg-indigo-500 text-center text-green-300 pt-4 pb-2 font-black font-mono uppercase">
+            <nuxt-link :to="localePath('/about')">{{ $t("about") }}</nuxt-link>
+        </h2>
         <!-- TODO: extract to standalone component -->
         <div class="
             flex items-center
@@ -230,5 +233,11 @@ export default class IndexPage extends Vue {
 </style>
 <i18n>
 {
+    "cs": {
+        "about": "O projektu"
+    },
+    "en": {
+        "about": "About us"
+    }
 }
 </i18n>

@@ -12,7 +12,7 @@ interface PlacesRawResponse {
 }
 
 export enum PlaceType {
-    TESTING= 'T',
+    TESTING = 'T',
     VACCINATION = 'V',
 }
 
@@ -115,7 +115,8 @@ class State extends BaseState {
     testingPlaces: TestingPlace[] = [];
     vaccinationPlaces: VaccinationPlace[] = [];
 
-    modified!: Date;
+    testingPlacesModified!: Date;
+    vaccinationPlacesModified!: Date;
 
     placeInDetail: TestingPlace | VaccinationPlace | null = null;
 
@@ -138,7 +139,7 @@ export const mutations = <MutationTree<State>>{
             ),
             (raw: any) => new TestingPlace(raw)
         )
-        state.modified = new Date(response.modified)
+        state.testingPlacesModified = new Date(response.modified)
     },
     setVaccinationPlacesResponse(state: State, response: PlacesRawResponse) {
         state.vaccinationPlaces = _.map(
@@ -148,7 +149,7 @@ export const mutations = <MutationTree<State>>{
             ),
             (raw: any) => new VaccinationPlace(raw)
         )
-        state.modified = new Date(response.modified)
+        state.vaccinationPlacesModified = new Date(response.modified)
     },
     setPlaceInDetail(state: State, place: VaccinationPlace | TestingPlace) {
         state.placeInDetail = place
