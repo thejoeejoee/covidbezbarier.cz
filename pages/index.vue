@@ -214,6 +214,13 @@ export default class IndexPage extends Vue {
         } catch (e) {this.loading = false; throw e;}
     }
 
+    async fetch() {
+        await Promise.all([
+            this.$store.dispatch('places/loadTestingPlaces'),
+            this.$store.dispatch('places/loadVaccinationPlaces'),
+        ]);
+    }
+
     created() {
         this.loadSearchResults = debounce(this.loadSearchResults, 750)
     }
