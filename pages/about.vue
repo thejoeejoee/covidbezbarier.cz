@@ -42,11 +42,11 @@
         ">
             <div class="pb-1">
                 {{ $t("sources.text") }}
-                <a class="text-green-500" href="https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19">
+                <a class="text-green-500" href="https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19" target="_blank" rel="noopener">
                     {{ $t("sources.here") }}
                 </a>
             </div>
-            <div class="pb-1">
+            <div class="pb-1" v-if="$store.state.places.vaccinationPlacesModified">
                 {{ $t("sources.updated.vaccinationPlaces") }}
                 {{ $store.state.places.vaccinationPlacesModified.toLocaleString(
                     $t("sources.updated.localeFormat"),
@@ -56,9 +56,9 @@
                     }
                 ) }}
             </div>
-            <div class="pb-1">
+            <div class="pb-1" v-if="$store.state.places.vaccinationPlacesModified">
                 {{ $t("sources.updated.testingPlaces") }}
-                {{ $store.state.places.testingPlacesModified.toLocaleString(
+                {{ $store.state.places.vaccinationPlacesModified.toLocaleString(
                     $t("sources.updated.localeFormat"),
                     {
                         year: "numeric", month: "long", day: "numeric",
@@ -82,13 +82,13 @@
         ">
             <div class="pb-1">
                 {{ $t("external.waitingStats") }}
-                <a class="text-green-500" href="https://ockovani.opendatalab.cz">
+                <a class="text-green-500" href="https://ockovani.opendatalab.cz" target="_blank" rel="noopener">
                     ockovani.opendatalab.cz
                 </a>
             </div>
             <div class="pb-1">
                 {{ $t("external.placesDetails") }}
-                <a class="text-green-500" href="https://cfa.uzis.cz">
+                <a class="text-green-500" href="https://cfa.uzis.cz" target="_blank" rel="noopener">
                     cfa.uzis.cz
                 </a>
             </div>
