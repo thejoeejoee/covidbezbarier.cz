@@ -61,7 +61,7 @@ export default class DefaultLayout extends Vue {
     }
 
     get expanded() {
-        return this.$store.state.layout.headingExpanded && !this.$store.state.places.placeInDetail
+        return this.$store.state.layout.headingExpanded && !this.$store.state.places.placeInDetail && !this.$store.state.map.targetLocation
     }
 }
 </script>
