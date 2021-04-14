@@ -37,9 +37,9 @@
                     aria-label="Testovací místa"
                 >
                     <img src="../assets/covid.svg" alt="" width="40" height="40">
-                </button><button
+                </button><!--
+                --><button
                     class="
-                        bg-green-50
                         rounded-r-full p-3 pr-4
                         border-r-4 border-t-4 border-b-4 border-green-300
                     "
@@ -80,7 +80,6 @@
                     "
                     v-model="searchInput"
                     type="text" id="searchInput"
-                    :class="{'bg-green-50': !loading, 'bg-red-50': loading}"
                 ><!-- TODO loading state -->
                 <span class="
                         absolute top-1/4 text-xl md:text-2xl pl-4 md:pl-5
@@ -96,6 +95,14 @@
                     erase-style="backspace"
                     caret-animation="smooth"
                 /></client-only></span>
+                <svg
+                    class="animate-spin absolute right-0 h-10 w-10 top-1/2 -mt-5 text-green-500 mr-4 transition-opacity delay-75"
+                    :class="{'opacity-0': !loading, 'opacity-1': loading}"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                >
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
             </label>
 
             <div
@@ -196,7 +203,7 @@ export default class IndexPage extends Vue {
 
     async loadSearchResults() {
         this.loading = true;
-        const BASE_URL = process.env.NODE_ENV === 'production' ?  '/nominatim' : 'https://nominatim.openstreetmap.org/search';
+        const BASE_URL = process.env.NODE_ENV === 'production' ? '/nominatim' : 'https://nominatim.openstreetmap.org/search';
         try {
             const {data} = await this.$axios.get(
                 `${BASE_URL}?format=json&polygon=0&addressdetails=0&countrycodes=cz&limit=1&q=${encodeURIComponent(this.searchInputRaw)}`
@@ -208,10 +215,13 @@ export default class IndexPage extends Vue {
                     lng: Number(data[0].lon),
                     acc: 0,
                 })
-            else;
-                // TODO: signalize no results
+            else ;
+            // TODO: signalize no results
             this.loading = false;
-        } catch (e) {this.loading = false; throw e;}
+        } catch (e) {
+            this.loading = false;
+            throw e;
+        }
     }
 
     async fetch() {
