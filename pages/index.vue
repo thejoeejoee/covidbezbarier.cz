@@ -1,9 +1,10 @@
 <template>
     <div class="w-full flex-grow flex flex-col">
-        <h2 class="bg-indigo-500 text-center text-green-300 pt-4 pb-2 font-black font-mono uppercase">
+        <h2 class="bg-indigo-500 text-center text-green-300 pt-2 pb-1 font-black font-mono uppercase">
             <nuxt-link :to="localePath('/about')">{{ $t("about") }}</nuxt-link>
+            &centerdot;
+            <LocaleSwitchLink />
         </h2>
-        <!-- TODO: extract to standalone component -->
         <div class="
             flex items-center
             bg-indigo-500
@@ -98,10 +99,16 @@
                 <svg
                     class="animate-spin absolute right-0 h-10 w-10 top-1/2 -mt-5 text-green-500 mr-4 transition-opacity delay-75"
                     :class="{'opacity-0': !loading, 'opacity-1': loading}"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                 >
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                </svg>
+                <svg
+                    class="absolute right-0 h-10 w-10 top-1/2 -mt-5 text-red-300 mr-4 transition-opacity"
+                    :class="{'opacity-0': !notFound, 'opacity-1': notFound}"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+                    <path fill="currentColor" class="opacity-75" d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"/>
                 </svg>
             </label>
 
@@ -169,6 +176,7 @@ export default class IndexPage extends Vue {
     searchInputRaw: string = ''
     geoDisabled = false
     loading = false;
+    notFound = false;
 
     proposalPlaces: string[] = ['Brno', 'Olomouc', 'Praha', 'Liberec', 'České Budějovice', 'Červená Lhota']
 
@@ -180,10 +188,11 @@ export default class IndexPage extends Vue {
         this.searchInputRaw = v || '';
         this.$store.commit('layout/setHeadingExpanded', v.length == 0);
         this.loadSearchResults && this.loadSearchResults()
+        this.notFound = false
     }
 
     get isExpanded() {
-        return this.$store.state.layout.headingExpanded && !this.$store.state.places.placeInDetail
+        return this.$store.state.layout.headingExpanded && !this.$store.state.places.placeInDetail && !this.$store.state.map.targetLocation
     }
 
     async locateByPosition() {
@@ -215,11 +224,12 @@ export default class IndexPage extends Vue {
                     lng: Number(data[0].lon),
                     acc: 0,
                 })
-            else ;
-            // TODO: signalize no results
+            else this.notFound = true
+
             this.loading = false;
         } catch (e) {
             this.loading = false;
+            this.notFound = true;
             throw e;
         }
     }

@@ -29,7 +29,7 @@
                 </h2>
             </div>
 
-            <Nuxt/>
+            <Nuxt keep-alive/>
         </div>
     </div>
 </template>
