@@ -60,7 +60,7 @@
             flex justify-center
             absolute bottom-0 left-0 right-0
 
-            pointer-events-none z-[430]
+            pointer-events-none z-[430] overflow-y-hidden
         ">
             <PlaceDetail
                 :place="placeInDetail"
