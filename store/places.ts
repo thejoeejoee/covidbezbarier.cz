@@ -3,8 +3,6 @@ import { $axios } from '~/utils/api'
 import {GetterTree, MutationTree, ActionTree} from "vuex"
 import {BaseState} from "~/store/base";
 
-const BASE_URL = '/covid';
-
 interface PlacesRawResponse {
     modified: string
     source: string
@@ -77,11 +75,11 @@ export class TestingPlace extends BasePlace {
 export class VaccinationPlace extends BasePlace {
     type = PlaceType.VACCINATION
 
-    readonly okres_nuts_kod!: string//"CZ0100",
-    readonly nrpzs_kod!: string//"CZ0100",
-    readonly operacni_status!: boolean //true,
+    readonly okres_nuts_kod!: string
+    readonly nrpzs_kod!: string
+    readonly operacni_status!: boolean
     readonly minimalni_kapacita!: bigint
-    readonly bezbarierovy_pristup!: boolean //
+    readonly bezbarierovy_pristup!: boolean
 
     constructor(raw: any) {
         super(
@@ -155,7 +153,6 @@ export const mutations = <MutationTree<State>>{
         state.placeInDetail = place
     },
     showTesting(state: State, v: boolean) {
-        // TODO: UX cries
         if (!v && !state.showVaccination) state.showVaccination = true;
         state.showTesting = v
     },
@@ -167,23 +164,13 @@ export const mutations = <MutationTree<State>>{
 
 export const actions = <ActionTree<State, any>>{
     async loadTestingPlaces({state, commit}) {
-        // TODO: to config
-        const response = await $axios.$get(
-            `${BASE_URL}/prehled-odberovych-mist.json`
-        )
-        commit(
-            'setTestingPlacesResponse',
-            response
-        )
+        // URL si routed by nuxt/vercel
+        const response = await $axios.$get('/covid/prehled-odberovych-mist.json')
+        commit('setTestingPlacesResponse', response)
     },
     async loadVaccinationPlaces({state, commit}) {
-        // TODO: to config
-        const response = await $axios.$get(
-            `${BASE_URL}/prehled-ockovacich-mist.json`
-        )
-        commit(
-            'setVaccinationPlacesResponse',
-            response
-        )
+        // URL si routed by nuxt/vercel
+        const response = await $axios.$get('/covid/prehled-ockovacich-mist.json')
+        commit('setVaccinationPlacesResponse', response)
     }
 }

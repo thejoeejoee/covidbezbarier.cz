@@ -1,61 +1,60 @@
 <template>
     <div class="flex-grow relative text-center" ref="root">
-            <l-map :zoom=8 :min-zoom=7
-                   :center="[49.8, 15]"
-                   :max-bounds="maxBounds" ref="map"
-                   class="absolute bottom-0 top-0 left-0 right-0">
-                <l-tile-layer
-                    url="https://a.tile.osm.org/{z}/{x}/{y}.png"
-                ></l-tile-layer>
-                <l-geo-json
-                    v-if="nutsGeoJson != null"
-                    :geojson="nutsGeoJson"
-                    :options-style="nutsStyleFunction"
-                ></l-geo-json>
+        <l-map :zoom=8 :min-zoom=7
+               :center="[49.8, 15]"
+               :max-bounds="maxBounds" ref="map"
+               class="absolute bottom-0 top-0 left-0 right-0">
+            <l-tile-layer
+                url="https://a.tile.osm.org/{z}/{x}/{y}.png"
+            ></l-tile-layer>
+            <l-geo-json
+                v-if="nutsGeoJson != null"
+                :geojson="nutsGeoJson"
+                :options-style="nutsStyleFunction"
+            ></l-geo-json>
 
-                <!--<l-tile-layer url="https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}"></l-tile-layer>-->
+            <!--<l-tile-layer url="https://mapserver.mapy.cz/turist-m/{z}-{x}-{y}"></l-tile-layer>-->
 
-                <l-marker-cluster
-                    :options="{
-                        showCoverageOnHover: false,
-                        spiderfyOnMaxZoom: false,
-                        disableClusteringAtZoom: 12
-                    }"
+            <l-marker-cluster
+                :options="{
+                    showCoverageOnHover: false,
+                    spiderfyOnMaxZoom: false,
+                    disableClusteringAtZoom: 12
+                }"
+            >
+                <template
+                    v-if="$store.state.places.showVaccination"
                 >
-                    <template
-                        v-if="$store.state.places.showVaccination"
+                    <l-marker
+                        v-for="place in $store.state.places.vaccinationPlaces"
+                        :key="place.id"
+                        :lat-lng="[place.latitude, place.longitude]"
+                        @click="selectPlace($event, place)"
                     >
-                        <l-marker
-                            v-for="place in $store.state.places.vaccinationPlaces"
-                            :key="place.id"
-                            :lat-lng="[place.latitude, place.longitude]"
-                            @click="selectPlace($event, place)"
-                        >
-                            <l-icon
-                                v-bind="markerAttrs"
-                                :icon-url="require('../assets/syringe-marker.svg')"
-                            />
-                        </l-marker>
-                    </template>
-                    <template
-                        v-if="$store.state.places.showTesting"
+                        <l-icon
+                            v-bind="markerAttrs"
+                            :icon-url="require('../assets/syringe-marker.svg')"
+                        />
+                    </l-marker>
+                </template>
+                <template
+                    v-if="$store.state.places.showTesting"
+                >
+                    <l-marker
+                        v-for="place in $store.state.places.testingPlaces"
+                        :key="place.id"
+                        :lat-lng="[place.latitude, place.longitude]"
+                        @click="selectPlace($event, place)"
+                        :name="place.name"
                     >
-                        <l-marker
-                            v-for="place in $store.state.places.testingPlaces"
-                            :key="place.id"
-                            :lat-lng="[place.latitude, place.longitude]"
-                            @click="selectPlace($event, place)"
-                            :name="place.name"
-                        >
-                            <l-icon
-                                v-bind="markerAttrs"
-                                :icon-url="require('../assets/covid-marker.svg')"
-                            />
-                        </l-marker>
-                    </template>
-                </l-marker-cluster>
-            </l-map>
-
+                        <l-icon
+                            v-bind="markerAttrs"
+                            :icon-url="require('../assets/covid-marker.svg')"
+                        />
+                    </l-marker>
+                </template>
+            </l-marker-cluster>
+        </l-map>
         <div class="
             flex justify-center
             absolute bottom-0 left-0 right-0
@@ -119,9 +118,27 @@ export default class Map extends Vue {
         );
 
         this.nutsGeoJson = await loadNutsGeoJson();
+
+        const hash: string = this.$route.hash.slice(1)
+        if (hash) {
+            const [type, ...id] = hash.split('-')
+            const places = {
+                [VaccinationPlace.type]: this.$store.state.places.vaccinationPlaces,
+                [TestingPlace.type]: this.$store.state.places.testingPlaces,
+            }[type] || [];
+
+            const place = _.find(places, {id: id.join('-')});
+            if (place)
+                await this.selectPlace(
+                    {latlng: {lat: place.latitude, lng: place.longitude}},
+                    place
+                )
+            else
+                await this.$router.push({hash: '#'})
+        }
     }
 
-    selectPlace($event: any, place: TestingPlace | VaccinationPlace | null) {
+    async selectPlace($event: any, place: TestingPlace | VaccinationPlace | null) {
         this.placeInDetail = place
         const {latlng}: { latlng: any } = $event;
 
@@ -131,13 +148,13 @@ export default class Map extends Vue {
             },
             15, // TODO: base detail zoom on starting zoom
             {animation: true});
-        if (!place) return;
 
-        this.$router.push({hash: `${place.type}-${place.id}`})
+        await this.$router.push({hash: `${place.type}-${place.id}`})
     }
 
     set placeInDetail(place: TestingPlace | VaccinationPlace | null) {
         this.$store.commit('places/setPlaceInDetail', place)
+        if (!place) this.$router.push({hash: '#'})
     }
 
     get placeInDetail(): TestingPlace | VaccinationPlace | null {
@@ -145,7 +162,7 @@ export default class Map extends Vue {
     }
 
     @Watch('$store.state.map.targetLocation', {deep: true})
-    ontargetLocationUpdate(location: Location) {
+    onTargetLocationUpdate(location: Location) {
         this.map.mapObject.setView({
                 lat: location.lat,
                 lng: location.lng,

@@ -64,7 +64,7 @@
                     mx-2 md:mx-0
                 "
                 :class="{
-                        'my-3 md:my-20 lg:my-32 -bottom-0' : this.isExpanded,
+                        'my-3 md:my-14 lg:my-20 -bottom-0' : this.isExpanded,
                         'my-18 -bottom-6 md:-bottom-8 -mt-5' : !this.isExpanded,
                     }"
 
@@ -81,7 +81,7 @@
                     "
                     v-model="searchInput"
                     type="text" id="searchInput"
-                ><!-- TODO loading state -->
+                >
                 <span class="
                         absolute top-1/4 text-xl md:text-2xl pl-4 md:pl-5
                     "><client-only><vue-typer
@@ -137,7 +137,7 @@
                         border-4 border-green-300
                         disabled:border-gray-500 disabled:bg-gray-300
                     "
-                    :disabled="!$geolocation.supported || geoDisabled"
+                    :disabled="!$geolocation.checkSupport() || geoDisabled"
                     title="..."
                 >
                     <img src="../assets/location.svg" alt="" width="40" height="40">
@@ -211,6 +211,7 @@ export default class IndexPage extends Vue {
     }
 
     async loadSearchResults() {
+        if (!this.searchInputRaw.length) return;
         this.loading = true;
         const BASE_URL = process.env.NODE_ENV === 'production' ? '/nominatim' : 'https://nominatim.openstreetmap.org/search';
         try {
@@ -224,7 +225,9 @@ export default class IndexPage extends Vue {
                     lng: Number(data[0].lon),
                     acc: 0,
                 })
-            else this.notFound = true
+            else {
+                this.notFound = true
+            }
 
             this.loading = false;
         } catch (e) {
