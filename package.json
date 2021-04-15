@@ -1,6 +1,6 @@
 {
   "name": "covidbezbarier.cz",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -13,14 +13,14 @@
     "@nuxtjs/gtm": "^2.4.0",
     "@nuxtjs/manifest": "^3.0.0-beta.16",
     "@nuxtjs/proxy": "^2.1.0",
-    "@nuxtjs/sentry": "^5.0.2",
+    "@nuxtjs/sentry": "^5.0.3",
     "core-js": "^3.8.3",
     "debounce-async": "^0.0.2",
     "leaflet": "^1.7.1",
     "lodash": "^4.17.21",
     "node-geocoder": "^3.27.0",
     "nuxt": "^2.14.12",
-    "nuxt-i18n": "^6.22.2",
+    "nuxt-i18n": "^6.25.0",
     "nuxt-leaflet": "^0.0.25",
     "nuxt-property-decorator": "^2.9.1",
     "nuxt-rfg-icon": "^0.6.4",
@@ -28,14 +28,14 @@
     "sass": "^1.32.8",
     "vue-geolocation-api": "^0.1.21",
     "vue-typer": "^1.2.0",
-    "vue2-leaflet": "^2.6.0",
+    "vue2-leaflet": "^2.7.0",
     "vue2-leaflet-markercluster": "^3.1.0"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.12",
     "@nuxt/typescript-build": "^2.0.4",
-    "@nuxtjs/tailwindcss": "^4.0.1",
+    "@nuxtjs/tailwindcss": "^4.0.3",
     "@types/lodash": "^4.14.168",
-    "postcss": "^8.2.8"
+    "postcss": "^8.2.10"
   }
 }

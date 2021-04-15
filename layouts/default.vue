@@ -7,7 +7,6 @@
                     text-2xl sm:text-4xl lg:text-6xl xl:text-7xl
                     text-gray-50 uppercase
                     ">
-                    <!-- TODO: brand logo? -->
                     {{ $t('headline') }}
                 </h1>
                 <h2 class="
@@ -78,7 +77,7 @@ export default class DefaultLayout extends Vue {
     },
     "en": {
         "headline": "Covid without barriers",
-        "description": "interactive map with places with wheelchair access for testing and vaccination"
+        "description": "map with places with wheelchair access for testing and vaccination"
     }
 }
 </i18n>
