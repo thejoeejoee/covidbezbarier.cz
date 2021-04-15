@@ -11,6 +11,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/gtm": "^2.4.0",
+    "@nuxtjs/manifest": "^3.0.0-beta.16",
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/sentry": "^5.0.2",
     "core-js": "^3.8.3",
@@ -22,6 +23,7 @@
     "nuxt-i18n": "^6.22.2",
     "nuxt-leaflet": "^0.0.25",
     "nuxt-property-decorator": "^2.9.1",
+    "nuxt-rfg-icon": "^0.6.4",
     "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.32.8",
     "vue-geolocation-api": "^0.1.21",

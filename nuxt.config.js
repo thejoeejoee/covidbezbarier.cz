@@ -41,12 +41,6 @@ export default {
             {hid: 'twitter:description', name: 'twitter:description', content: description},
         ],
         link: [
-            {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
-            {
-                rel: "preload",
-                href: "https://a.tile.osm.org/8/138/87.png",
-                as: "image"
-            },
             {
                 rel: "preconnect",
                 href: "https://a.tile.osm.org/",
@@ -93,6 +87,72 @@ export default {
         ['nuxt-i18n', {}],
         '@nuxtjs/gtm',
         '@nuxtjs/proxy',
+        ["nuxt-rfg-icon", {
+            masterPicture: "static/favicon.svg",
+            rfg: {
+                "iconsPath": "/",
+                "design": {
+                    "ios": {
+                        "pictureAspect": "backgroundAndMargin",
+                        "backgroundColor": "#ffffff",
+                        "margin": "14%",
+                        "assets": {
+                            "ios6AndPriorIcons": false,
+                            "ios7AndLaterIcons": false,
+                            "precomposedIcons": false,
+                            "declareOnlyDefaultIcon": true
+                        }
+                    },
+                    "desktopBrowser": {
+                        "design": "background",
+                        "backgroundColor": "#ffffff",
+                        "backgroundRadius": 1,
+                        "imageScale": 0.8
+                    },
+                    "windows": {
+                        "pictureAspect": "whiteSilhouette",
+                        "backgroundColor": "#2d89ef",
+                        "onConflict": "override",
+                        "assets": {
+                            "windows80Ie10Tile": false,
+                            "windows10Ie11EdgeTiles": {
+                                "small": false,
+                                "medium": true,
+                                "big": false,
+                                "rectangle": false
+                            }
+                        }
+                    },
+                    "androidChrome": {
+                        "pictureAspect": "shadow",
+                        "themeColor": "#ffffff",
+                        "manifest": {
+                            "name": "Covid bez bariér",
+                            "display": "standalone",
+                            "orientation": "notSet",
+                            "onConflict": "override",
+                            "declared": true
+                        },
+                        "assets": {
+                            "legacyIcon": false,
+                            "lowResolutionIcons": false
+                        }
+                    },
+                    "safariPinnedTab": {
+                        "pictureAspect": "silhouette",
+                        "themeColor": "#6366f1"
+                    }
+                },
+                "settings": {
+                    "scalingAlgorithm": "Mitchell",
+                    "errorOnImageTooSmall": false,
+                    "readmeFile": false,
+                    "htmlCodeFile": false,
+                    "usePathAsIs": false
+                }
+            }
+        }],
+        "@nuxtjs/manifest",
     ],
 
     publicRuntimeConfig: {
