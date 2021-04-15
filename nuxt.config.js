@@ -38,11 +38,15 @@ export default {
             {hid: 'og:url', name: 'og:url', content: baseUrl},
             {hid: 'og:title', name: 'og:title', content: title},
             {hid: 'og:description', name: 'og:description', content: description},
+            {hid: 'og:image', name: 'og:image', content: `${baseUrl}static/og-image.png`},
+            {hid: 'og:image:width', name: 'og:image:width', content: '1200'},
+            {hid: 'og:image:height', name: 'og:image:height', content: '630'},
 
-            {hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image'},
+            {hid: 'twitter:card', name: 'twitter:card', content: 'summary'},
             {hid: 'twitter:url', name: 'twitter:url', content: baseUrl},
             {hid: 'twitter:title', name: 'twitter:title', content: title},
             {hid: 'twitter:description', name: 'twitter:description', content: description},
+            {hid: 'twitter:image', name: 'twitter:image', content: `${baseUrl}static/tw-image.png`},
         ],
         link: [
             {
