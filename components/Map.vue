@@ -73,7 +73,7 @@
 import {Component, Vue, Watch} from "nuxt-property-decorator";
 import ResizeObserver from 'resize-observer-polyfill'
 import * as _ from 'lodash'
-import {TestingPlace, VaccinationPlace} from "~/store/places";
+import {PlaceType, TestingPlace, VaccinationPlace} from "~/store/places";
 import {Location} from "~/store/map";
 import {LatLngBounds} from "leaflet";
 
@@ -123,11 +123,11 @@ export default class Map extends Vue {
         if (hash) {
             const [type, ...id] = hash.split('-')
             const places = {
-                [VaccinationPlace.type]: this.$store.state.places.vaccinationPlaces,
-                [TestingPlace.type]: this.$store.state.places.testingPlaces,
+                [PlaceType.VACCINATION]: this.$store.state.places.vaccinationPlaces,
+                [PlaceType.TESTING]: this.$store.state.places.testingPlaces,
             }[type] || [];
 
-            const place = _.find(places, {id: id.join('-')});
+            const place = _.find<VaccinationPlace | TestingPlace>(places, {id: id.join('-')});
             if (place)
                 await this.selectPlace(
                     {latlng: {lat: place.latitude, lng: place.longitude}},
@@ -149,7 +149,8 @@ export default class Map extends Vue {
             15, // TODO: base detail zoom on starting zoom
             {animation: true});
 
-        await this.$router.push({hash: `${place.type}-${place.id}`})
+        if (place)
+            await this.$router.push({hash: `${place.type}-${place.id}`})
     }
 
     set placeInDetail(place: TestingPlace | VaccinationPlace | null) {

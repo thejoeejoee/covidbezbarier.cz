@@ -45,7 +45,7 @@
                         p-2 block
                         md:flex md:flex-row md:items-center md:gap-2
                     "
-                    :href="`http://maps.google.com/maps?q=${encodeURIComponent(place.address)}`"
+                    :href="`https://maps.google.com/maps?q=${encodeURIComponent(place.address)}`"
                     target="_blank" rel="noopener"
                 >
                     <div class="hidden md:block select-none">
@@ -77,7 +77,7 @@
                             class="
                                 bg-green-200 rounded-full text-xs p-1 px-2 text-green-900
                                 lg:text-lg
-                        ">drive in</span>
+                        ">Drive in</span>
                         <span
                             v-if="place.antigenni_odber"
                             class="
@@ -119,6 +119,7 @@
                     </svg>
                 </a>
                 <a
+                    v-if="place.operacni_status"
                     :href="`https://cfa.uzis.cz/vaccination-centers/${place.id}`"
                     target="_blank" rel="noopener"
                     class="
@@ -179,12 +180,12 @@ export default class DefaultLayout extends Vue {
             "antigen": "Antigenní odběr",
             "oropharynx": "Orofaryngeální odběr",
             "nasopharynx": "Nasofaryngeální odběr",
-            "statusClosed": "Místo je momentálně mimo provoz"
+            "statusClosed": "Místo je momentálně mimo provoz."
         },
         "vaccinationPlace": {
             "wheelchairAccess": "Bezbariérový přístup",
             "vaccinationPlace": "Vakcinační místo",
-            "statusClosed": "Místo momentálně nepřijímá rezervace"
+            "statusClosed": "Místo momentálně nepřijímá rezervace."
         }
     },
     "en": {
