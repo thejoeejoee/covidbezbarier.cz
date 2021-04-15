@@ -1,8 +1,8 @@
 version: 2
 updates:
-# Fetch and update latest `npm` packages
 - package-ecosystem: npm
   directory: '/'
+  target-branch: "develop"
   schedule:
     interval: daily
     time: '00:00'
@@ -11,7 +11,3 @@ updates:
     - josef kolář
   assignees:
     - josef kolář
-  commit-message:
-    prefix: fix
-    prefix-development: chore
-    include: scope
