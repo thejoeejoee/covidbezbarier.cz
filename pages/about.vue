@@ -41,7 +41,7 @@
                 <div class="pb-1">
                     {{ $t('version') }} <a
                     class="text-green-500 font-bold"
-                    :href="`https://github.com/thejoeejoee/covidbezbarier.cz/releases/tag/${$config.appVersion}`">v{{ $config.appVersion }}</a>
+                    :href="`https://github.com/thejoeejoee/covidbezbarier.cz/releases/tag/v${$config.appVersion}`">v{{ $config.appVersion }}</a>
                 </div>
             </div>
 
