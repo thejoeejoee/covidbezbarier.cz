@@ -34,13 +34,13 @@ export default {
                 content: description
             },
 
-            {hid: 'og:type', name: 'og:type', content: 'website'},
-            {hid: 'og:url', name: 'og:url', content: baseUrl},
-            {hid: 'og:title', name: 'og:title', content: title},
-            {hid: 'og:description', name: 'og:description', content: description},
-            {hid: 'og:image', name: 'og:image', content: `${baseUrl}og-image.png`},
-            {hid: 'og:image:width', name: 'og:image:width', content: '1200'},
-            {hid: 'og:image:height', name: 'og:image:height', content: '630'},
+            {hid: 'og:type', property: 'og:type', content: 'website'},
+            {hid: 'og:url', property: 'og:url', content: baseUrl},
+            {hid: 'og:title', property: 'og:title', content: title},
+            {hid: 'og:description', property: 'og:description', content: description},
+            {hid: 'og:image', property: 'og:image', content: `${baseUrl}og-image.png`},
+            {hid: 'og:image:width', property: 'og:image:width', content: '1200'},
+            {hid: 'og:image:height', property: 'og:image:height', content: '630'},
 
             {hid: 'twitter:card', name: 'twitter:card', content: 'summary'},
             {hid: 'twitter:url', name: 'twitter:url', content: baseUrl},
