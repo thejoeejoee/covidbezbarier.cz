@@ -7,6 +7,10 @@ const baseUrl = (
 const title = 'Covid bez bariér'
 const description = 'Covid bez bariér – interaktivní mapa bezbariérových míst na testování a očkování proti Covid-19'
 
+const fs = require('fs')
+
+const appVersion = JSON.parse(fs.readFileSync('./package.json')).version || 0
+
 export default {
     target: 'static',
 
@@ -157,6 +161,7 @@ export default {
 
     publicRuntimeConfig: {
         baseUrl,
+        appVersion,
     },
 
     axios: {

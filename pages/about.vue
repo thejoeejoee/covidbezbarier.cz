@@ -38,6 +38,11 @@
                 <div class="pb-1">
                     {{ $t('development-repository') }} <a class="text-green-500" href="https://github.com/thejoeejoee/covidbezbarier.cz">thejoeejoee/covidbezbarier.cz</a>.
                 </div>
+                <div class="pb-1">
+                    {{ $t('version') }} <a
+                    class="text-green-500 font-bold"
+                    :href="`https://github.com/thejoeejoee/covidbezbarier.cz/releases/tag/${$config.appVersion}`">v{{ $config.appVersion }}</a>
+                </div>
             </div>
 
             <h2 class="
@@ -117,10 +122,11 @@
 {
     "cs": {
         "map": "Zpět na mapu",
+        "version": "Verze",
         "headline": "Covid bez bariér",
         "description": "je projekt webové stránky pro hledání vakcinačních a testovacích míst s&nbsp;bezbariérovým přístupem na interaktivní mapě. Zobrazuje veřejně dostupná data o těchto místech od MZČR na mapovém podkladu s možností vyhledávání dle adresy či aktuální lokace uživatele. Pro každé z míst je též dostupný detail s popisem, adresou a specifikací dostupných služeb.",
         "development": "Vývoj",
-        "development-repository": "Veřejně dostupný repozitář na",
+        "development-repository": "Zdrojový kód je veřejně dostupný na",
         "sources": {
             "label": "Zdroj dat",
             "text": "Veřejně dostupná data Ministerstva zdravotnictví ve verzi 2.0 dostupná",
@@ -139,6 +145,7 @@
     },
     "en": {
         "map": "Back to map",
+        "version": "Version",
         "headline": "Covid without barriers",
         "description": "is a website project for searching vaccination and testing places with barrier-free access on an interactive map. Displays public data about these places from the MZČR on a map base with the tool to search by address or current location of the user. For each of the places, a detail with a description, address and specification of available services is also available. ",
         "development": "Developed by",
