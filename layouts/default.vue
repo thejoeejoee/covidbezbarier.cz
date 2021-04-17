@@ -50,7 +50,11 @@ import {
 import {TestingPlace} from "~/store/places";
 
 
-@Component({})
+@Component({
+    head() {
+        return this.$nuxtI18nHead({addSeoAttributes: true})
+    }
+})
 export default class DefaultLayout extends Vue {
     async fetch() {
         await Promise.all([

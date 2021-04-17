@@ -46,10 +46,10 @@
                         md:flex md:flex-row md:items-center md:gap-2
                     "
                     :href="`https://maps.google.com/maps?q=${encodeURIComponent(place.address)}`"
-                    target="_blank" rel="noopener"
+                    target="_blank" rel="noopener" :title="$t('showInGoogleMaps')"
                 >
                     <div class="hidden md:block select-none">
-                        <img src="../assets/location.svg" alt="" width="40" height="40">
+                        <img src="../assets/location.svg" :alt="$t('placeAddress')" width="40" height="40">
                     </div>
                     <address
                         class="whitespace-pre-line text-left pr-2 font-mono not-italic lg:text-lg"
@@ -112,7 +112,9 @@
                         p-2 px-4 shadow relative
                         lg:text-lg
                         pr-8 md:pr-0
-                    ">
+                    "
+                    :title="$t('waitingStatsTitle')"
+                    >
                     {{ $t("waitingStats") }}
                     <svg xmlns="http://www.w3.org/2000/svg" class="absolute right-0 mr-2 top-1/2 -mt-3 w-6 h-6" viewBox="0 0 30 30" fill="currentColor">
                         <path d="M 25.980469 2.9902344 A 1.0001 1.0001 0 0 0 25.869141 3 L 20 3 A 1.0001 1.0001 0 1 0 20 5 L 23.585938 5 L 13.292969 15.292969 A 1.0001 1.0001 0 1 0 14.707031 16.707031 L 25 6.4140625 L 25 10 A 1.0001 1.0001 0 1 0 27 10 L 27 4.1269531 A 1.0001 1.0001 0 0 0 25.980469 2.9902344 z M 6 7 C 4.9069372 7 4 7.9069372 4 9 L 4 24 C 4 25.093063 4.9069372 26 6 26 L 21 26 C 22.093063 26 23 25.093063 23 24 L 23 14 L 23 11.421875 L 21 13.421875 L 21 16 L 21 24 L 6 24 L 6 9 L 14 9 L 16 9 L 16.578125 9 L 18.578125 7 L 16 7 L 14 7 L 6 7 z"></path>
@@ -128,7 +130,9 @@
                         p-2 px-4 shadow
                         lg:text-lg relative
                         pr-8 md:pr-0
-                    ">
+                    "
+                    :title="$t('MZCRSiteTitle')"
+                >
                     {{ $t("MZCRSite") }}
                     <svg xmlns="http://www.w3.org/2000/svg" class="absolute right-0 mr-2 top-1/2 -mt-3 w-6 h-6" viewBox="0 0 30 30" fill="currentColor">
                         <path d="M 25.980469 2.9902344 A 1.0001 1.0001 0 0 0 25.869141 3 L 20 3 A 1.0001 1.0001 0 1 0 20 5 L 23.585938 5 L 13.292969 15.292969 A 1.0001 1.0001 0 1 0 14.707031 16.707031 L 25 6.4140625 L 25 10 A 1.0001 1.0001 0 1 0 27 10 L 27 4.1269531 A 1.0001 1.0001 0 0 0 25.980469 2.9902344 z M 6 7 C 4.9069372 7 4 7.9069372 4 9 L 4 24 C 4 25.093063 4.9069372 26 6 26 L 21 26 C 22.093063 26 23 25.093063 23 24 L 23 14 L 23 11.421875 L 21 13.421875 L 21 16 L 21 24 L 6 24 L 6 9 L 14 9 L 16 9 L 16.578125 9 L 18.578125 7 L 16 7 L 14 7 L 6 7 z"></path>
@@ -145,7 +149,9 @@
                         p-2 px-4 shadow
                         lg:text-lg relative
                         pr-8 md:pr-0
-                    ">
+                    "
+                    :title="$t('MZCRSiteTitle')"
+                >
                     {{ $t("MZCRSite") }}
                     <svg xmlns="http://www.w3.org/2000/svg" class="absolute right-0 mr-2 top-1/2 -mt-3 w-6 h-6" viewBox="0 0 30 30" fill="currentColor">
                         <path d="M 25.980469 2.9902344 A 1.0001 1.0001 0 0 0 25.869141 3 L 20 3 A 1.0001 1.0001 0 1 0 20 5 L 23.585938 5 L 13.292969 15.292969 A 1.0001 1.0001 0 1 0 14.707031 16.707031 L 25 6.4140625 L 25 10 A 1.0001 1.0001 0 1 0 27 10 L 27 4.1269531 A 1.0001 1.0001 0 0 0 25.980469 2.9902344 z M 6 7 C 4.9069372 7 4 7.9069372 4 9 L 4 24 C 4 25.093063 4.9069372 26 6 26 L 21 26 C 22.093063 26 23 25.093063 23 24 L 23 14 L 23 11.421875 L 21 13.421875 L 21 16 L 21 24 L 6 24 L 6 9 L 14 9 L 16 9 L 16.578125 9 L 18.578125 7 L 16 7 L 14 7 L 6 7 z"></path>
@@ -174,8 +180,12 @@ export default class DefaultLayout extends Vue {
 {
     "cs": {
         "close": "Zavřít",
+        "showInGoogleMaps": "Zobrazit v Google Maps",
+        "placeAddress": "Adresa místa",
         "MZCRSite": "Oficiální stránka na MZČR",
+        "MZCRSiteTitle": "Zobrazit na stránkách MZČR",
         "waitingStats": "Statistiky čekací doby",
+        "waitingStatsTitle": "Zobrazit statistiky čekací doby",
         "testingPlace": {
             "antigen": "Antigenní odběr",
             "oropharynx": "Orofaryngeální odběr",
@@ -190,8 +200,12 @@ export default class DefaultLayout extends Vue {
     },
     "en": {
         "close": "Close",
+        "showInGoogleMaps": "Show in Google Maps",
+        "placeAddress": "Site address",
         "MZCRSite": "Official site of MZČR",
+        "MZCRSiteTitle": "Show site on MZČR",
         "waitingStats": "Waiting time statistics",
+        "waitingStatsTitle": "Show waiting time statistics",
         "testingPlace": {
             "antigen": "Antigen testing",
             "oropharynx": "Oropharyngeal testing",
