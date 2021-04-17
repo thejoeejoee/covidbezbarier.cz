@@ -8,11 +8,11 @@
             max-w-full border-t-4 border-indigo-700
             left-0 right-0 shadow-xl
 
-            flex flex-col justify-between gap-y-3 lg:gap-y-5
+            flex flex-col justify-between
             transition-transform duration-300 transition-opacity transform
         " :class="{'translate-y-0 opacity-1': place, 'translate-y-[130%] opacity-0': !place}">
         <template v-if="place">
-            <div class="flex justify-between items-start">
+            <div class="flex justify-between items-start mb-3 lg:mb-5">
                 <h2
                     class="md:text-md lg:text-xl font-bold whitespace-pre-line text-left"
                     v-text="place.name.split(',').join('\n')"
@@ -29,6 +29,7 @@
                 class="
                     p-2 px-4 bg-yellow-200 text-red-600 rounded-md
                     shadow lg:text-lg
+                    mb-3 lg:mb-5
                 "
             >
                 <template v-if="isVaccinationInDetail">
@@ -38,17 +39,18 @@
                     {{ $t("testingPlace.statusClosed") }}
                 </template>
             </div>
-            <div class="flex flex-row justify-between items-start gap-x-2">
+            <div class="flex flex-row justify-between items-start mb-3 lg:mb-5">
                 <a
                     class="
                         align-top rounded-md bg-gray-100
                         p-2 block
-                        md:flex md:flex-row md:items-center md:gap-2
+                        md:flex md:flex-row md:items-center
+                        mr-2
                     "
                     :href="`https://maps.google.com/maps?q=${encodeURIComponent(place.address)}`"
                     target="_blank" rel="noopener" :title="$t('showInGoogleMaps')"
                 >
-                    <div class="hidden md:block select-none">
+                    <div class="hidden md:block select-none md:mr-2">
                         <img src="../assets/location.svg" :alt="$t('placeAddress')" width="40" height="40">
                     </div>
                     <address
@@ -112,6 +114,7 @@
                         p-2 px-4 shadow relative
                         lg:text-lg
                         pr-8 md:pr-0
+                        mb-1 lg:mb-2
                     "
                     :title="$t('waitingStatsTitle')"
                     >
@@ -149,6 +152,7 @@
                         p-2 px-4 shadow
                         lg:text-lg relative
                         pr-8 md:pr-0
+                        mb-3 lg:mb-5
                     "
                     :title="$t('MZCRSiteTitle')"
                 >
