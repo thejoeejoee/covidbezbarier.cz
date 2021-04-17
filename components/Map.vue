@@ -154,8 +154,10 @@ export default class Map extends Vue {
             15, // TODO: base detail zoom on starting zoom
             {animation: true});
 
-        if (place)
+        if (place) {
+            this.$gtm.push({event: 'selectedPlace', type: place.type, id: place.id, name: place.name})
             await this.$router.push({hash: `${place.type}-${place.id}`})
+        }
     }
 
     set placeInDetail(place: TestingPlace | VaccinationPlace | null) {
