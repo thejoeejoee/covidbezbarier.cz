@@ -92,7 +92,7 @@ export default {
         '@nuxtjs/sentry',
         ['nuxt-leaflet', {}],
         'vue-geolocation-api/nuxt',
-        ['nuxt-i18n', {}],
+        ['nuxt-i18n', {seo: true}],
         '@nuxtjs/gtm',
         '@nuxtjs/proxy',
         ["nuxt-rfg-icon", {
@@ -181,7 +181,6 @@ export default {
         },
     },
 
-
     build: {},
 
     sentry: {
@@ -198,7 +197,7 @@ export default {
     },
 
     i18n: {
-        locales: ['cs', 'en'],
+        locales: [{code: 'cs', iso: 'cs'}, {code: 'en', iso: 'en'}],
         defaultLocale: 'cs',
         vueI18nLoader: true,
     }

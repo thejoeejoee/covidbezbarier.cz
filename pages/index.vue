@@ -35,9 +35,10 @@
                         'border-gray-500 bg-gray-300': !$store.state.places.showTesting,
                     }"
                     @click="$store.commit('places/showTesting', !$store.state.places.showTesting)"
-                    aria-label="Testovací místa"
+                    :aria-label="$store.state.places.showTesting ? $t('filter.testingHide') : $t('filter.testingShow')"
+                    :title="$store.state.places.showTesting ? $t('filter.testingHide') : $t('filter.testingShow')"
                 >
-                    <img src="../assets/covid.svg" alt="" width="40" height="40">
+                    <img src="../assets/covid.svg" :alt="$t('testingPlaces')"  width="40" height="40">
                 </button><!--
                 --><button
                     class="
@@ -49,9 +50,10 @@
                         'border-gray-500 bg-gray-300': !$store.state.places.showVaccination,
                     }"
                     @click="$store.commit('places/showVaccination', !$store.state.places.showVaccination)"
-                    aria-label="Vakcinační místa"
+                    :aria-label="$store.state.places.showVaccination ? $t('filter.vaccinationHide') : $t('filter.vaccinationShow')"
+                    :title="$store.state.places.showVaccination ? $t('filter.vaccinationHide') : $t('filter.vaccinationShow')"
                 >
-                    <img src="../assets/syringe.svg" alt="" width="40" height="40">
+                    <img src="../assets/syringe.svg" :alt="$t('vaccinationPlaces')" width="40" height="40">
                 </button>
             </div>
             <label
@@ -67,7 +69,7 @@
                         'my-3 md:my-14 lg:my-20 -bottom-0' : this.isExpanded,
                         'my-18 -bottom-6 md:-bottom-8 -mt-5' : !this.isExpanded,
                     }"
-
+                :title="$t('searchByInput')"
                 for="searchInput"
             >
                 <input
@@ -138,9 +140,9 @@
                         disabled:border-gray-500 disabled:bg-gray-300
                     "
                     :disabled="!$geolocation.checkSupport() || geoDisabled"
-                    title="..."
+                    :title="$t('locateByPosition')"
                 >
-                    <img src="../assets/location.svg" alt="" width="40" height="40">
+                    <img src="../assets/location.svg" :alt="$t('locateByPosition')" width="40" height="40">
                 </button>
             </div>
         </div>
@@ -178,7 +180,7 @@ export default class IndexPage extends Vue {
     loading = false;
     notFound = false;
 
-    proposalPlaces: string[] = ['Brno', 'Olomouc', 'Praha', 'Liberec', 'České Budějovice', 'Červená Lhota']
+    proposalPlaces: string[] = ['Brno', 'Olomouc', 'Praha', 'Ostrava', 'Liberec', 'České Budějovice']
 
     get searchInput(): string {
         return this.searchInputRaw
@@ -264,10 +266,30 @@ export default class IndexPage extends Vue {
 <i18n>
 {
     "cs": {
-        "about": "O projektu"
+        "about": "O projektu",
+        "searchByInput": "Hledat dle adresy",
+        "locateByPosition": "Lokalizovat dle vaší polohy",
+        "testingPlaces": "Testovací místa",
+        "vaccinationPlaces": "Vakcinační místa",
+        "filter": {
+            "testingHide": "Skrýt testovací místa",
+            "vaccinationHide": "Skrýt vakcinační místa",
+            "testingShow": "Zobrazit testovací místa",
+            "vaccinationShow": "Zobrazit vackinační místa"
+        }
     },
     "en": {
-        "about": "About us"
+        "about": "About us",
+        "searchByInput": "Search by address",
+        "locateByPosition": "Locate by your position",
+        "testingPlaces": "Testing sites",
+        "vaccinationPlaces": "Vaccination sites",
+        "filter": {
+            "testingHide": "Hide testing sites",
+            "vaccinationHide": "Hide vaccination sites",
+            "testingShow": "Show testing sites",
+            "vaccinationShow": "Show vaccination sites"
+        }
     }
 }
 </i18n>

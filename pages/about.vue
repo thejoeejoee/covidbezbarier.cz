@@ -147,7 +147,7 @@
         "map": "Back to map",
         "version": "Version",
         "headline": "Covid without barriers",
-        "description": "is a website project for searching vaccination and testing places with barrier-free access on an interactive map. Displays public data about these places from the MZČR on a map base with the tool to search by address or current location of the user. For each of the places, a detail with a description, address and specification of available services is also available. ",
+        "description": "is a website project for searching vaccination and testing sites with barrier-free access on an interactive map. Displays public data about these places from the MZČR on a map base with the tool to search by address or current location of the user. For each of the places, a detail with a description, address and specification of available services is also available. ",
         "development": "Developed by",
         "development-repository": "Repository is public on",
         "sources": {

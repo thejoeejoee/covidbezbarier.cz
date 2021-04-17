@@ -30,6 +30,7 @@
                         :key="place.id"
                         :lat-lng="[place.latitude, place.longitude]"
                         @click="selectPlace($event, place)"
+                        :options="{title: place.name}"
                     >
                         <l-icon
                             v-bind="markerAttrs"
@@ -45,7 +46,7 @@
                         :key="place.id"
                         :lat-lng="[place.latitude, place.longitude]"
                         @click="selectPlace($event, place)"
-                        :name="place.name"
+                        :options="{title: place.name}"
                     >
                         <l-icon
                             v-bind="markerAttrs"
