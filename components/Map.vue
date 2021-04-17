@@ -99,19 +99,23 @@ export default class Map extends Vue {
             fillOpacity: 0
         };
     };
+    private onResize!: CallableFunction;
 
     get map(): any {
         return this.$refs.map
     }
 
     async mounted() {
-        const obs = new ResizeObserver(_.debounce(() => {
+        this.onResize = _.debounce(() => {
             this.$nextTick(() => {
                 if (this.$refs.map)
                     (this.$refs.map as any).mapObject.invalidateSize();
             })
-        }, 500))
+        }, 500)
+
+        const obs = new ResizeObserver(this.onResize as any)
         obs.observe(this.$refs.root as Element)
+        window.addEventListener("resize", this.onResize as any);
 
         this.maxBounds = this.$L.latLngBounds(
             this.$L.latLng(51.2, 12),
@@ -172,6 +176,10 @@ export default class Map extends Vue {
             12,
             {animation: true}
         );
+    }
+
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize as any);
     }
 }
 </script>
