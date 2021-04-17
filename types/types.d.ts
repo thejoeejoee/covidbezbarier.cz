@@ -9,3 +9,12 @@ declare module "*.vue" {
     export default Vue
 }
 
+interface GTM {
+    push(obj: any) : any;
+}
+
+declare module 'vue/types/vue' {
+    interface Vue {
+        $gtm: GTM
+    }
+}

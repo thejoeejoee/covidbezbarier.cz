@@ -198,6 +198,7 @@ export default class IndexPage extends Vue {
     }
 
     async locateByPosition() {
+        this.$gtm.push({event: 'locateByPosition'})
         try {
             this.loading = true;
             const loc: Position = await this.$geolocation.getCurrentPosition();
@@ -214,6 +215,7 @@ export default class IndexPage extends Vue {
 
     async loadSearchResults() {
         if (!this.searchInputRaw.length) return;
+        this.$gtm.push({event: 'search', input: this.searchInputRaw})
         this.loading = true;
         const BASE_URL = process.env.NODE_ENV === 'production' ? '/nominatim' : 'https://nominatim.openstreetmap.org/search';
         try {
