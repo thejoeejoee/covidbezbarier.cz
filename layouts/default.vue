@@ -47,7 +47,6 @@ import {
     VuexAction,
     VuexModule
 } from "nuxt-property-decorator"
-import {TestingPlace} from "~/store/places";
 
 
 @Component({

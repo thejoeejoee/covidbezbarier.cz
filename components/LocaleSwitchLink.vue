@@ -1,5 +1,5 @@
 <template>
-    <nuxt-link :to="switchLocalePath($i18n.locale == 'en' ? 'cs' : 'en')">
+    <nuxt-link :to="switchLocalePath($i18n.locale === 'en' ? 'cs' : 'en')">
         {{ $t("switch") }}
     </nuxt-link>
 </template>

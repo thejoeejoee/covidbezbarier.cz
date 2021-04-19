@@ -74,9 +74,9 @@
 import {Component, Vue, Watch} from "nuxt-property-decorator";
 import ResizeObserver from 'resize-observer-polyfill'
 import * as _ from 'lodash'
-import {PlaceType, TestingPlace, VaccinationPlace} from "~/store/places";
 import {Location} from "~/store/map";
 import {LatLngBounds} from "leaflet";
+import {PlaceType, TestingPlace, VaccinationPlace} from "~/store/types";
 
 const loadNutsGeoJson = () => import('~/assets/nuts.json').then(m => m.default || m)
 
