@@ -14,7 +14,7 @@
     "@nuxtjs/manifest": "^3.0.0-beta.16",
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/sentry": "^5.0.3",
-    "core-js": "^3.10.2",
+    "core-js": "^3.11.0",
     "debounce-async": "^0.0.2",
     "leaflet": "^1.7.1",
     "lodash": "^4.17.21",
