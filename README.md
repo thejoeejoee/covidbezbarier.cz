@@ -1,4 +1,6 @@
-# covidbezbarier.cz
+# Covid Without Bariers - [covidbezbarier.cz](https://covidbezbarier.cz/)
+
+Web app with interactive map of places with wheelchair access for Covid-19 testing and vaccination. 
 
 ## Build Setup
 
@@ -17,4 +19,7 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Authors
+
+- Josef Kolář, [@thejoeejoee](https://github.com/thejoeejoee)
+- Peter Uhrín, [@Will-Jachar](https://github.com/Will-Jachar)
