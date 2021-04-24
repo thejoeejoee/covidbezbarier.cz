@@ -1,7 +1,7 @@
 import * as _ from "lodash"
 import { $axios } from '~/utils/api'
 import {GetterTree, MutationTree, ActionTree} from "vuex"
-import {BaseState} from "~/store/base";
+import {BaseObject} from "~/store/base";
 
 export interface Location {
     lat: number
@@ -9,7 +9,7 @@ export interface Location {
     acc: number | null
 }
 
-class State extends BaseState {
+class State extends BaseObject {
     targetLocation: Location | null = null
 }
 

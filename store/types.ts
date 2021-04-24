@@ -1,11 +1,12 @@
 import * as _ from "lodash";
+import {BaseObject} from "~/store/base";
 
 export enum PlaceType {
     TESTING = 'T',
     VACCINATION = 'V',
 }
 
-export abstract class BasePlace {
+export abstract class BasePlace extends BaseObject {
     readonly abstract type: PlaceType;
     readonly latitude: number;
     readonly longitude: number;
@@ -17,6 +18,7 @@ export abstract class BasePlace {
         lat: string,
         long: string
     ) {
+        super();
         this.latitude = Number(lat)
         this.longitude = Number(long)
     }
