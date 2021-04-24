@@ -154,23 +154,12 @@
 </template>
 
 <script lang="ts">
-import {createNamespacedHelpers} from 'vuex'
-import * as _ from 'lodash'
 import {
     Component,
-    Inject,
-    Model,
-    Prop,
-    Provide,
     Vue,
-    Watch,
-    VuexAction,
-    VuexModule
 } from "nuxt-property-decorator"
-import {TestingPlace} from "~/store/places";
 import {GeolocationPlugin} from "vue-geolocation-api";
 import debounce from "debounce-async";
-import Geolocation = GeolocationPlugin.Geolocation;
 import Position = GeolocationPlugin.Position;
 
 @Component({fetchOnServer: false})

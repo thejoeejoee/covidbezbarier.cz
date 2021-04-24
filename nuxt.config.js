@@ -5,7 +5,6 @@ const baseUrl = (
 ).replace(/\/$/, '') + '/'
 
 const title = 'Covid bez bariér'
-const description = 'Covid bez bariér – interaktivní mapa bezbariérových míst na testování a očkování proti Covid-19'
 
 const fs = require('fs')
 
@@ -15,7 +14,6 @@ export default {
     target: 'static',
 
     head: {
-        title: 'Covid bez bariér',
         htmlAttrs: {
             lang: 'cs'
         },
@@ -28,24 +26,17 @@ export default {
                 name: 'author',
                 content: 'Josef Kolář & Peter Uhrín; https://github.com/thejoeejoee/covidbezbarier.cz'
             },
-            {
-                hid: 'description',
-                name: 'description',
-                content: description
-            },
+
+            // description and og:title is dynamic, so it's generated from layout
 
             {hid: 'og:type', property: 'og:type', content: 'website'},
             {hid: 'og:url', property: 'og:url', content: baseUrl},
-            {hid: 'og:title', property: 'og:title', content: title},
-            {hid: 'og:description', property: 'og:description', content: description},
             {hid: 'og:image', property: 'og:image', content: `${baseUrl}og-image.png`},
             {hid: 'og:image:width', property: 'og:image:width', content: '1200'},
             {hid: 'og:image:height', property: 'og:image:height', content: '630'},
 
             {hid: 'twitter:card', name: 'twitter:card', content: 'summary'},
             {hid: 'twitter:url', name: 'twitter:url', content: baseUrl},
-            {hid: 'twitter:title', name: 'twitter:title', content: title},
-            {hid: 'twitter:description', name: 'twitter:description', content: description},
             {hid: 'twitter:image', name: 'twitter:image', content: `${baseUrl}tw-image.png`},
         ],
         link: [

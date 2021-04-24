@@ -1,4 +1,4 @@
-export class BaseState {
+export class BaseObject {
     toJSON() {
         return Object.getOwnPropertyNames(this).reduce((a, b) => {
             // @ts-ignore

@@ -166,8 +166,8 @@
     </div>
 </template>
 <script lang="ts">
-import {PlaceType, TestingPlace, VaccinationPlace} from "~/store/places";
 import {Component, Prop, Vue} from "nuxt-property-decorator";
+import {PlaceType, TestingPlace, VaccinationPlace} from "~/store/types";
 
 @Component({})
 export default class DefaultLayout extends Vue {

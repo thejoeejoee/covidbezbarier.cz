@@ -47,14 +47,9 @@ import {
     VuexAction,
     VuexModule
 } from "nuxt-property-decorator"
-import {TestingPlace} from "~/store/places";
 
 
-@Component({
-    head() {
-        return this.$nuxtI18nHead({addSeoAttributes: true})
-    }
-})
+@Component({})
 export default class DefaultLayout extends Vue {
     async fetch() {
         await Promise.all([
@@ -65,6 +60,41 @@ export default class DefaultLayout extends Vue {
 
     get expanded() {
         return this.$store.state.layout.headingExpanded && !this.$store.state.places.placeInDetail && !this.$store.state.map.targetLocation
+    }
+
+    head() {
+        return {
+            ...this.$nuxtI18nHead({addSeoAttributes: true}),
+            title: this.$t('headline'),
+            description: this.$t('description'),
+            meta: [
+                {
+                    hid: 'description',
+                    name: 'description',
+                    content: this.$t('long')
+                },
+                {
+                    hid: 'og:description',
+                    property: 'og:description',
+                    content: this.$t('long')
+                },
+                {
+                    hid: 'twitter:description',
+                    name: 'twitter:description',
+                    content: this.$t('long')
+                },
+                {
+                    hid: 'og:title',
+                    property: 'og:title',
+                    content: this.$t('headline')
+                },
+                {
+                    hid: 'twitter:title',
+                    name: 'twitter:title',
+                    content: this.$t('headline')
+                },
+            ]
+        }
     }
 }
 </script>
@@ -77,11 +107,13 @@ export default class DefaultLayout extends Vue {
 {
     "cs": {
         "headline": "Covid bez bariér",
-        "description": "interaktivní mapa bezbariérových míst pro testování a vakcinaci"
+        "description": "interaktivní mapa bezbariérových míst pro testování a vakcinaci",
+        "long": "Covid bez bariér – interaktivní mapa bezbariérových míst na testování a očkování proti Covid-19"
     },
     "en": {
         "headline": "Covid without barriers",
-        "description": "map with places with wheelchair access for testing and vaccination"
+        "description": "map with places with wheelchair access for testing and vaccination",
+        "long": "Covid without Barriers – an interactive map of barrier-free sites for testing and vaccination against Covid-19"
     }
 }
 </i18n>
