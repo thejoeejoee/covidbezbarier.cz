@@ -2,7 +2,9 @@
 
 Web app with interactive map of places with wheelchair access for Covid-19 testing and vaccination. 
 
-## Build Setup
+Project at FIT BUT with public repository on [thejoeejoee/covidbezbarier.cz](https://github.com/thejoeejoee/covidbezbarier.cz).
+
+## Build and Run Setup
 
 ```bash
 # install dependencies
