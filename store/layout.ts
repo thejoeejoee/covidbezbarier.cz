@@ -1,6 +1,4 @@
-import * as _ from "lodash"
-import { $axios } from '~/utils/api'
-import {GetterTree, MutationTree, ActionTree} from "vuex"
+import {MutationTree, ActionTree} from "vuex"
 import {BaseObject} from "~/store/base";
 
 class State extends BaseObject {
