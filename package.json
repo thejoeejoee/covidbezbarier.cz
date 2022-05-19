@@ -36,6 +36,6 @@
     "@nuxt/typescript-build": "^2.0.4",
     "@nuxtjs/tailwindcss": "^4.2.1",
     "@types/lodash": "^4.14.176",
-    "postcss": "^8.3.11"
+    "postcss": "^8.4.14"
   }
 }
