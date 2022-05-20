@@ -25,7 +25,7 @@
     "nuxt-property-decorator": "^2.9.1",
     "nuxt-rfg-icon": "^0.6.4",
     "resize-observer-polyfill": "^1.5.1",
-    "sass": "^1.43.4",
+    "sass": "^1.52.0",
     "vue-geolocation-api": "^0.1.21",
     "vue-typer": "^1.2.0",
     "vue2-leaflet": "^2.7.1",
