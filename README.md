@@ -1,4 +1,6 @@
-# Covid Without Bariers - [covidbezbarier.cz](https://covidbezbarier.cz/)
+_Archived since it's hopefully not needed anymore._
+
+# Covid Without Bariers - ~~[covidbezbarier.cz](https://covidbezbarier.cz/)~~ [covidbezbarier-cz.vercel.app/](covidbezbarier-cz.vercel.app/)
 
 Web app with interactive map of places with wheelchair access for Covid-19 testing and vaccination. 
 
